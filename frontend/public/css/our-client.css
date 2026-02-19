@@ -1,0 +1,158 @@
+/* Styles specific to the "Our Clients" page */
+
+/* Clients Hero Section */
+.clients-hero {
+    background-color: #eab308; /* Theme color */
+    padding: 60px 0;
+    color: #000;
+}
+
+.clients-hero h2 {
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+
+.clients-hero p {
+    font-size: 1.2em;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+}
+
+.hero-buttons .btn {
+    margin: 0 10px;
+    padding: 12px 28px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    display: inline-block;
+    border: 2px solid #000;
+}
+
+.hero-buttons .btn-light {
+    background-color: #fff;
+    color: #000;
+}
+
+.hero-buttons .btn-dark {
+    background-color: #000;
+    color: #fff;
+}
+
+
+/* Featured Clients Section */
+.featured-clients {
+    padding: 80px 0;
+    background-color: #fdfaf5;
+}
+
+.featured-clients-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+.featured-clients-title {
+    flex-basis: 30%;
+    border-right: 3px dotted #ccc;
+    padding-right: 40px;
+}
+
+.featured-clients-title h2 {
+    font-size: 2.5em;
+    margin: 0;
+}
+
+.featured-clients-title p {
+    font-size: 1.1em;
+    color: #666;
+}
+
+.featured-clients-grid {
+    flex-basis: 70%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    border: 3px dotted #ccc;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.client-card {
+    text-align: center;
+}
+
+.client-card img {
+    height: 60px;
+    margin-bottom: 15px;
+    background-color: #eee; /* Placeholder bg */
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.client-card h3 {
+    margin: 0 0 5px 0;
+}
+
+.client-card .client-industry {
+    color: #777;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+.client-card .client-desc {
+    font-size: 1em;
+    color: #333;
+}
+
+/* Section Divider */
+.section-divider {
+    height: 10px;
+    background-color: #00bcd4; /* A cyan/blue color from the image */
+}
+
+/* Testimonials Section */
+.testimonials {
+    padding: 80px 0;
+    background-color: #fdfaf5;
+}
+
+.testimonial-list {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    gap: 30px;
+}
+
+.testimonial-item {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    background-color: #fff;
+    padding: 25px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+.testimonial-logo {
+    height: 70px;
+    width: 70px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.testimonial-content h3 {
+    margin: 0 0 5px 0;
+}
+
+.testimonial-content .testimonial-source {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+.testimonial-content .testimonial-quote {
+    margin: 0;
+    font-size: 1.05em;
+    line-height: 1.6;
+}

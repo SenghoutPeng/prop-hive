@@ -1,0 +1,170 @@
+/* Styles specific to the "Edit Tenant" page */
+
+.edit-tenant-page {
+    background-color: #fdfaf5;
+    padding: 60px 0;
+}
+
+/* Edit Header Section */
+.edit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 30px;
+    border-bottom: 2px solid #eab308;
+    margin-bottom: 60px;
+}
+
+.user-details {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+}
+
+.user-info h2 {
+    margin: 0 0 5px 0;
+    font-size: 1.8em;
+}
+
+.user-info p {
+    margin: 0;
+    color: #666;
+}
+
+.status-badge {
+    background-color: #e0f2f1;
+    color: #00796b;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.view-description {
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.action-buttons .btn {
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+.action-buttons .btn-cancel {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.action-buttons .btn-save {
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #000;
+}
+
+/* Main Form Area */
+.main-form-area {
+    display: flex;
+    gap: 80px;
+    align-items: flex-start;
+}
+
+.form-title-column {
+    flex: 0 0 35%;
+}
+
+.form-title-column h3 {
+    font-size: 2.2em;
+    margin-bottom: 15px;
+}
+
+.form-title-column p {
+    color: #666;
+    line-height: 1.6;
+    font-size: 1.1em;
+}
+
+.form-fields-column {
+    flex: 1;
+}
+
+.tenant-form {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.tenant-form .form-group {
+    margin-bottom: 25px;
+}
+
+.tenant-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+}
+
+.tenant-form input[type="text"],
+.tenant-form input[type="email"],
+.tenant-form input[type="tel"],
+.tenant-form input[type="date"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.status-selector {
+    display: flex;
+}
+
+.btn-status {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    color: #555;
+}
+
+.btn-status.active {
+    background-color: #e0e0e0;
+    font-weight: bold;
+    color: #000;
+}
+
+.btn-status:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.btn-status:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left: none;
+}
+
+.btn-update {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background-color: #333;
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+}

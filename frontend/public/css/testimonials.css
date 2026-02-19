@@ -1,0 +1,86 @@
+/* Styles specific to the "Testimonials" page */
+
+.testimonials-page {
+    padding: 80px 0;
+    background-color: #fdfaf5;
+}
+
+.testimonials-container {
+    display: flex;
+    gap: 60px;
+    align-items: flex-start;
+}
+
+/* Left Column */
+.left-column {
+    flex: 0 0 40%; /* Flex-basis of 40% */
+}
+
+.page-title {
+    font-size: 2.8em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.page-subtitle {
+    font-size: 1.1em;
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.decorative-image-container img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Right Column */
+.right-column {
+    flex: 1;
+}
+
+.featured-testimonial {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 20px;
+}
+
+.testimonial-logo {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    object-fit: contain;
+    border: 3px solid #ccc;
+    background-color: #fff;
+}
+
+.testimonial-info h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.6em;
+}
+
+.testimonial-info .source {
+    margin: 0;
+    color: #666;
+    font-style: italic;
+}
+
+.testimonial-quote {
+    margin-bottom: 30px;
+}
+
+.testimonial-quote p {
+    font-size: 1.3em;
+    font-weight: bold;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.testimonial-full-text p {
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: #333;
+}

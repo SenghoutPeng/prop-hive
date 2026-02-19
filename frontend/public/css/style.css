@@ -1,0 +1,123 @@
+/* General reusable styles for the entire website */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #fdfaf5;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2.5em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.section-subtitle {
+    text-align: center;
+    margin-bottom: 50px;
+    color: #666;
+    font-size: 1.1em;
+}
+
+/* Header styles (used on all pages) */
+.header { 
+    background-color: #eab308; 
+    padding: 15px 0; 
+    border-bottom: 2px solid #000; 
+}
+.header .container { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+.logo-container { 
+    display: flex; 
+    align-items: center; 
+}
+.logo-container .logo { 
+    height: 40px; 
+    margin-right: 10px; 
+}
+.logo-container h1 { 
+    font-size: 1.8em; 
+    margin: 0; 
+    color: #000; 
+}
+.main-nav ul { 
+    margin: 0; 
+    padding: 0; 
+    list-style: none; 
+}
+.main-nav ul li { 
+    display: inline-block; 
+    margin: 0 15px; 
+}
+.main-nav a { 
+    text-decoration: none; 
+    color: #000; 
+    font-weight: bold; 
+}
+.user-actions .login-btn { 
+    font-weight: bold; 
+    color: #000; 
+    text-decoration: none; 
+    margin-right: 15px; 
+}
+.user-actions .profile-icon img { 
+    height: 35px; 
+    vertical-align: middle; 
+}
+
+/* Footer styles (used on all pages) */
+.footer { 
+    background-color: #222; 
+    color: #fff; 
+    padding: 40px 0; 
+    text-align: center; 
+}
+.map-container { 
+    margin-bottom: 30px; 
+}
+.map-container img { 
+    max-width: 100%; 
+    border-radius: 8px; 
+}
+.footer-content { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    max-width: 800px; 
+    margin: 0 auto; 
+    flex-wrap: wrap; 
+}
+.social-media { 
+    display: flex; 
+    align-items: center; 
+}
+.social-media p { 
+    margin-right: 15px; 
+}
+.social-media a { 
+    color: #fff; 
+    font-size: 1.5em; 
+    margin: 0 8px; 
+}
+
+.profile-icon img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ffd700; /* Optional: gold border for visibility */
+}

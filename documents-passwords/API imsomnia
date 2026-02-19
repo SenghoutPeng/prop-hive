@@ -1,0 +1,1575 @@
+type: collection.insomnia.rest/5.0
+name: My Collection
+meta:
+  id: wrk_e39730d96c5b4d1e8342b7df09c38291
+  created: 1742787366869
+  modified: 1742787366869
+  description: ""
+collection:
+  - name: API-Auth
+    meta:
+      id: fld_658d830a2b014344ac673d9851ad166d
+      created: 1751875934182
+      modified: 1751875934182
+      sortKey: -1751875934182
+      description: ""
+    children:
+      - name: Front
+        meta:
+          id: fld_c72550cf53524c26bda618d297889163
+          created: 1751875958863
+          modified: 1752227776186
+          sortKey: -1751875958863
+          description: ""
+        children:
+          - url: http://127.0.0.1:8092/api/user/login
+            name: Login
+            meta:
+              id: req_03f12fb61d89429ab7412aea7994cea4
+              created: 1751880646593
+              modified: 1752229603969
+              isPrivate: false
+              description: ""
+              sortKey: -1751880646593
+            method: POST
+            body:
+              mimeType: application/json
+              text: |2-
+                  {
+                    "user_email": "ra@gmail.com",
+                    "password": "123456"
+                  }
+            headers:
+              - name: Content-Type
+                value: application/json
+                id: pair_b2326c744f1e4940bba0542153d8e2f6
+              - name: User-Agent
+                value: insomnia/11.2.0
+                id: pair_5c66ec7d361e43c997ace6887ad3b440
+              - id: pair_7e52458dfc714524b311f2f2f6407cba
+                name: Accept
+                value: application/json
+                description: ""
+                disabled: false
+            authentication:
+              type: bearer
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://127.0.0.1:8092/api/register
+            name: register
+            meta:
+              id: req_569ccb25a15049458339be883be74260
+              created: 1751955609639
+              modified: 1752221690582
+              isPrivate: false
+              description: ""
+              sortKey: -1751878343763
+            method: POST
+            body:
+              mimeType: application/json
+              text: |2-
+                  {
+                    "name": "Dara",
+                    "email": "dara@gmail.com",
+                    "password": "dara1234",
+                		"password_confirmation": "dara1234"
+                  }
+            headers:
+              - name: Content-Type
+                value: application/json
+                id: pair_a25d676b444442628e9b1035d91edab7
+              - name: User-Agent
+                value: insomnia/11.2.0
+                id: pair_78e6c093ff534b3ba027d59de9d8b886
+              - id: pair_341d9ccdd5fb470b8f36232f82f01cf5
+                name: Accept
+                value: application/json
+                description: ""
+                disabled: false
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://127.0.0.1:8092/api/profile
+            name: display profile
+            meta:
+              id: req_51a64adfb2a64daca93f6a73faba5401
+              created: 1751957804160
+              modified: 1752229631635
+              isPrivate: false
+              description: ""
+              sortKey: -1751879495178
+            method: GET
+            body:
+              mimeType: application/json
+              text: ""
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.2.0
+                id: pair_d4384676e6fc4558b511ab4f725cbff6
+              - id: pair_27d2ec5ff0b14f9d926f670ff150cf6a
+                name: Accept
+                value: application/json
+                description: ""
+                disabled: false
+            authentication:
+              type: bearer
+              token: 5|ATmAFnrPKQ3xTsZCK8bXO8eqqYMBwTbOOXRmXSBP5d52e12c
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://127.0.0.1:8092/api/user/logout
+            name: Logout
+            meta:
+              id: req_4cb32031ff724249947e254feaf15f55
+              created: 1752221858562
+              modified: 1752229668052
+              isPrivate: false
+              description: ""
+              sortKey: -1752221858562
+            method: POST
+            headers:
+              - name: User-Agent
+                value: insomnia/11.3.0
+            authentication:
+              type: bearer
+              token: 5|ATmAFnrPKQ3xTsZCK8bXO8eqqYMBwTbOOXRmXSBP5d52e12c
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://127.0.0.1:8092/api/contact
+            name: Contact
+            meta:
+              id: req_e2630431e3e540a0a561eb9a8988fb90
+              created: 1752221924717
+              modified: 1752221974899
+              isPrivate: false
+              description: ""
+              sortKey: -1752221924717
+            method: GET
+            body:
+              mimeType: application/json
+              text: |2-
+                  {
+                    "name": "User Name",
+                    "email": "user@example.com",
+                    "message": "Your message here"
+                  }
+            headers:
+              - name: Content-Type
+                value: application/json
+                id: pair_b446fb0698db4cd49b2d868f8ffa8068
+              - name: User-Agent
+                value: insomnia/11.3.0
+                id: pair_d308ebbbee7c4c94af9bca0a514f7e78
+              - id: pair_80822c44176c4dba92a6d2634ac8174c
+                name: Accept
+                value: application/json
+                description: ""
+                disabled: false
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://127.0.0.1:8092/api/support-ticket
+            name: Support Ticket
+            meta:
+              id: req_15eab4f2ebbd4c44856125ead3d0ef96
+              created: 1752222141129
+              modified: 1752223912547
+              isPrivate: false
+              description: ""
+              sortKey: -1752222141129
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "name": "Your Name",
+                  "user_email": "your@email.com",
+                  "subject": "Short summary of your issue",
+                  "message": "Describe your problem or request here"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+                id: pair_7a2435306dbe4a21ab403dbd3b9acc3f
+              - name: User-Agent
+                value: insomnia/11.3.0
+                id: pair_2149e0671bcd4da6bb9b288aa915a648
+              - id: pair_40376230ded248ba81e9f3263c7ef05a
+                name: Accept
+                value: application/json
+                description: ""
+                disabled: false
+            authentication:
+              type: bearer
+              token: 4|Z1QZwTkC5r9ehKFHY6ISQaGgMxUbukCEKssxuXVV1c05f176
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://127.0.0.1:8092/api/home
+            name: Home
+            meta:
+              id: req_99a9b5da9bbc42d58b6e817aab13fbaf
+              created: 1752227542125
+              modified: 1752227568295
+              isPrivate: false
+              description: ""
+              sortKey: -1752227542125
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.3.0
+                id: pair_6a78ee3b588541c0b0d3919409dac5ce
+              - id: pair_1f2b4b829755472597fa3813cc1cf328
+                name: Accept
+                value: application/json
+                description: ""
+                disabled: false
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://127.0.0.1:8092/api/about
+            name: About
+            meta:
+              id: req_5a0eba2a8ba84432bcad5908d6048db0
+              created: 1752227678008
+              modified: 1752227712908
+              isPrivate: false
+              description: ""
+              sortKey: -1752227678008
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.3.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://127.0.0.1:8092/api/listing
+            name: Listing
+            meta:
+              id: req_22aac603707c473085f2f5d83f2760f7
+              created: 1752227736151
+              modified: 1752227749014
+              isPrivate: false
+              description: ""
+              sortKey: -1752227736151
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.3.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://127.0.0.1:8092/api/meet-our-team
+            name: Meet our team
+            meta:
+              id: req_9f1349fab43c4ae0afb85283d6ec3019
+              created: 1752227779053
+              modified: 1752227792228
+              isPrivate: false
+              description: ""
+              sortKey: -1752227779053
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.3.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://127.0.0.1:8092/api/our-client
+            name: Our client
+            meta:
+              id: req_3508978bb8ab45e2b355354812ed988b
+              created: 1752227811933
+              modified: 1752227831177
+              isPrivate: false
+              description: ""
+              sortKey: -1752227811933
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.3.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://127.0.0.1:8092/api/edit-tenant
+            name: Edit tenant
+            meta:
+              id: req_7b3ca536915147be883a2979db21e73f
+              created: 1752227845582
+              modified: 1752227873935
+              isPrivate: false
+              description: ""
+              sortKey: -1752227845582
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.3.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: Backend
+        meta:
+          id: fld_c1306baec55b40728775f12e4d80367c
+          created: 1751876022917
+          modified: 1751876022917
+          sortKey: -1751876022917
+          description: ""
+        children:
+          - name: Utilities
+            meta:
+              id: fld_b3110e5cbd8540b899d92805fdc7e6f7
+              created: 1752130817313
+              modified: 1752130817313
+              sortKey: -1752130817313
+              description: ""
+            children:
+              - url: http://127.0.0.1:8092/api/utilities
+                name: List all utility bills
+                meta:
+                  id: req_d1fbe0aaa2d04ca6bd6f3839bb8822fa
+                  created: 1752130821504
+                  modified: 1752229788539
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752130821504
+                method: GET
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.2.0
+                    id: pair_1af9f07494d74455a7d9ff20d5d51b3d
+                  - id: pair_cf75b6d06c75475eb03fff704cd1f9b6
+                    name: Accept
+                    value: application/json
+                    description: ""
+                    disabled: false
+                authentication:
+                  type: bearer
+                  token: 6|Qod8tSMukvNmx91iXMVJQS9vCc8M0ZVmTPYyp05611a48839
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: http://127.0.0.1:8092/api/utilities
+                name: Create a utility bill
+                meta:
+                  id: req_75e6b6b7a0cc4b5b974eeab420395b64
+                  created: 1752130863885
+                  modified: 1752229870341
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752130863885
+                method: POST
+                body:
+                  mimeType: application/json
+                  text: |-
+                    {
+                      "user_id": 20,
+                      "property_id": 10,
+                      "utility_bill_type": "Electricity",
+                      "utility_bill_amount": 2000.00,
+                      "utility_bill_usage": 500,
+                      "utility_bill_date": "2025-07-11",
+                      "utility_bill_due_date": "2025-07-25",
+                      "utility_bill_status": "Pending"
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/11.2.0
+                    id: pair_2bfdb9fe8cac4c35833de827675447a2
+                  - id: pair_6c798835eed54584b2c5a84907d1fad6
+                    name: Accept
+                    value: application/json
+                    description: ""
+                    disabled: false
+                authentication:
+                  type: bearer
+                  token: 6|Qod8tSMukvNmx91iXMVJQS9vCc8M0ZVmTPYyp05611a48839
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: http://127.0.0.1:8092/api/utilities/7
+                name: "Get a utility bill "
+                meta:
+                  id: req_3d123f14f60a4ba0a130a5cd19e126bd
+                  created: 1752131036112
+                  modified: 1752229837486
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752130832099.25
+                method: GET
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.2.0
+                authentication:
+                  type: bearer
+                  token: 6|Qod8tSMukvNmx91iXMVJQS9vCc8M0ZVmTPYyp05611a48839
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: http://127.0.0.1:8092/api/utilities/17
+                name: Update a utility bill
+                meta:
+                  id: req_05a2c00277a64c3ca58c2b4b359f1d52
+                  created: 1752131064967
+                  modified: 1752229923397
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752131064967
+                method: PUT
+                body:
+                  mimeType: application/json
+                  text: |-
+                    {
+                        "user_id": 20,
+                        "property_id": 10,
+                        "utility_bill_type": "Electricity",
+                        "utility_bill_amount": 260.00,
+                        "utility_bill_usage": 600,
+                        "utility_bill_date": "2024-02-01",
+                        "utility_bill_due_date": "2024-02-15",
+                        "utility_bill_status": "Paid"
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/11.2.0
+                    id: pair_6632310134d6468c8967e566c5834981
+                  - id: pair_59b4baab63e04e52898aec7aaffc4a47
+                    name: Accept
+                    value: application/json
+                    description: ""
+                    disabled: false
+                authentication:
+                  type: bearer
+                  token: 6|Qod8tSMukvNmx91iXMVJQS9vCc8M0ZVmTPYyp05611a48839
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: http://127.0.0.1:8092/api/utilities/17
+                name: Delete a utility bill
+                meta:
+                  id: req_57c4137f89f742128941accd197d9bb5
+                  created: 1752131080217
+                  modified: 1752229931890
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752131080217
+                method: DELETE
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.2.0
+                authentication:
+                  type: bearer
+                  token: 1|sIzA6WxdQuX9E7Ukt5a0yC3KojSWqp7w6XWsofRi89f64adf
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+          - name: Payments
+            meta:
+              id: fld_6fb94943de2d486c91858e91d3d99f69
+              created: 1752136372283
+              modified: 1752136372283
+              sortKey: -1752136372283
+              description: ""
+            children:
+              - url: "  http://127.0.0.1:8092/api/payments"
+                name: List all payments
+                meta:
+                  id: req_24189ad0bda7452b828b699929d23dae
+                  created: 1752136381675
+                  modified: 1752210660277
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752136381675
+                method: GET
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.2.0
+                authentication:
+                  type: bearer
+                  token: 1|sIzA6WxdQuX9E7Ukt5a0yC3KojSWqp7w6XWsofRi89f64adf
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: "  http://127.0.0.1:8092/api/payments"
+                name: Create a new payment
+                meta:
+                  id: req_494edcc3ba1d41b4a3fd55ce2448b98c
+                  created: 1752136393337
+                  modified: 1752217664780
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752136393337
+                method: POST
+                body:
+                  mimeType: application/json
+                  text: |-
+                    {
+                      "user_id": 20,
+                      "id": 8,
+                      "payment_amount": 1200.00,
+                      "payment_type": "Cash",
+                      "payment_date": "2025-07-11",
+                      "payment_status": "Paid"
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/11.2.0
+                    id: pair_e0b3edb5da2644b491386a8f1f124296
+                  - id: pair_529596ab3c1c4369a4f2caeee6cfafff
+                    name: Accept
+                    value: application/json
+                    description: ""
+                    disabled: false
+                authentication:
+                  type: bearer
+                  token: 1|sIzA6WxdQuX9E7Ukt5a0yC3KojSWqp7w6XWsofRi89f64adf
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: "  http://127.0.0.1:8092/api/payments/12"
+                name: "Get a payment "
+                meta:
+                  id: req_37949b4d74b44fdbb1171986c8dd695e
+                  created: 1752136403455
+                  modified: 1752217676698
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752136387506
+                method: GET
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.2.0
+                authentication:
+                  type: bearer
+                  token: 1|sIzA6WxdQuX9E7Ukt5a0yC3KojSWqp7w6XWsofRi89f64adf
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: "  http://127.0.0.1:8092/api/payments/15"
+                name: Update a payment
+                meta:
+                  id: req_908486325068401d826fa076fcbcf379
+                  created: 1752136414345
+                  modified: 1752217656228
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752136414345
+                method: PUT
+                body:
+                  mimeType: application/json
+                  text: |-
+                    {
+                        "user_id": 18,
+                        "id": 4,
+                        "payment_amount": 1200,
+                        "payment_date": "2025-07-11",
+                        "payment_status": "Paid",
+                        "payment_type": "Cash"
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/11.2.0
+                    id: pair_1aac6a04da664003869258ea5fcc46d9
+                  - id: pair_657c5d1da6f74d71b74af9f67e1fa68a
+                    name: Accept
+                    value: application/json
+                    description: ""
+                    disabled: false
+                authentication:
+                  type: bearer
+                  token: 1|sIzA6WxdQuX9E7Ukt5a0yC3KojSWqp7w6XWsofRi89f64adf
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: "  http://127.0.0.1:8092/api/payments/15"
+                name: Delete a payment
+                meta:
+                  id: req_cfbf0a0992834d19b45a4462d2ad08c8
+                  created: 1752136425839
+                  modified: 1752217694746
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752136425839
+                method: DELETE
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.2.0
+                authentication:
+                  type: bearer
+                  token: 1|sIzA6WxdQuX9E7Ukt5a0yC3KojSWqp7w6XWsofRi89f64adf
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+          - name: Tenants
+            meta:
+              id: fld_ec2a4d5f72414cf092d6bcb9129ef8fb
+              created: 1752136441607
+              modified: 1752136441607
+              sortKey: -1752136441607
+              description: ""
+            children:
+              - url: "  http://127.0.0.1:8092/api/tenants"
+                name: List all tenants
+                meta:
+                  id: req_ba27f83ac62f4e25b915f60f417a1e43
+                  created: 1752136445009
+                  modified: 1752230063180
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752136445009
+                method: GET
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.2.0
+                authentication:
+                  type: bearer
+                  token: 6|Qod8tSMukvNmx91iXMVJQS9vCc8M0ZVmTPYyp05611a48839
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: "  http://127.0.0.1:8092/api/tenants"
+                name: Create a new tenant
+                meta:
+                  id: req_25b7846a333346a6be983dc1f3fac2da
+                  created: 1752136475266
+                  modified: 1752217854191
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752136475266
+                method: POST
+                body:
+                  mimeType: application/json
+                  text: |-
+                    {
+                        "user_name": "Nisa",
+                        "user_email": "sani@gmail.com",
+                        "user_phone": "48357966",
+                        "property_id": 4,
+                        "user_password": "securepassword123"
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/11.2.0
+                    id: pair_a46115eb907147e1bb2c59a6c6fb3a40
+                  - id: pair_edfeaf5ecb004dd187bd38ec7380a16e
+                    name: Accept
+                    value: application/json
+                    description: ""
+                    disabled: false
+                authentication:
+                  type: bearer
+                  token: 1|sIzA6WxdQuX9E7Ukt5a0yC3KojSWqp7w6XWsofRi89f64adf
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: "  http://127.0.0.1:8092/api/tenants/4"
+                name: "Get a tenant "
+                meta:
+                  id: req_4c0a347b7ed44e70b1efb6c52345ff1d
+                  created: 1752136506843
+                  modified: 1752416013692
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752136460137.5
+                method: GET
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.2.0
+                authentication:
+                  type: bearer
+                  token: 9|amH9FGT7CEwf5kgUKTLhz220mBrBwHEn5HPbctM7c43220f0
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: "  http://127.0.0.1:8092/api/tenants/20"
+                name: Update a tenant
+                meta:
+                  id: req_d7c8eaea92514189bc2b384e031d9c0b
+                  created: 1752136512489
+                  modified: 1752230008692
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752136512489
+                method: PUT
+                body:
+                  mimeType: application/json
+                  text: |-
+                    {
+                        "user_name": "Nisa",
+                        "user_email": "sani.updated@gmail.com",
+                        "user_phone": "9876543210",
+                        "property_id": 9,
+                        "user_password": "newsecurepassword123"
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/11.2.0
+                    id: pair_3f7ebccda3654893aa1d2dc99b91e395
+                  - id: pair_b89cbce4d5f34d2daeb56039ee73ee80
+                    name: Accept
+                    value: application/json
+                    description: ""
+                    disabled: false
+                authentication:
+                  type: bearer
+                  token: 6|Qod8tSMukvNmx91iXMVJQS9vCc8M0ZVmTPYyp05611a48839
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: "  http://127.0.0.1:8092/api/tenants/8"
+                name: Delete a tenant
+                meta:
+                  id: req_5c1e9e3557374ccca328afe529d1192f
+                  created: 1752136525875
+                  modified: 1752230031116
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752136525875
+                method: DELETE
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.2.0
+                authentication:
+                  type: bearer
+                  token: 6|Qod8tSMukvNmx91iXMVJQS9vCc8M0ZVmTPYyp05611a48839
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+          - name: Properties
+            meta:
+              id: fld_9c9296aba7e84524a890733186a9376c
+              created: 1752136553653
+              modified: 1752136553653
+              sortKey: -1752136553654
+              description: ""
+            children:
+              - url: "  http://127.0.0.1:8092/api/properties"
+                name: List all properties
+                meta:
+                  id: req_343f57159f534342a71bf60d1bac70ee
+                  created: 1752136593564
+                  modified: 1752416218361
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752136593564
+                method: GET
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.2.0
+                authentication:
+                  type: bearer
+                  token: 10|25W7d7jSKSNYa61knoMzZLrMlw3D22Jo2HbzUJL8e19950db
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: "  http://127.0.0.1:8092/api/properties"
+                name: Create a new property
+                meta:
+                  id: req_e5f4789866084e34858d6ab534d776e9
+                  created: 1752136603497
+                  modified: 1752210794920
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752136603497
+                method: POST
+                body:
+                  mimeType: application/json
+                  text: >-
+                    {
+                      "title": "Luxury Villa",
+                      "price": 250000,
+                      "type": "villa",
+                      "status": "available",
+                      "bedrooms": 5,
+                      "bathrooms": 4,
+                      "square_feet": 4500,
+                      "address": "123 Luxury Lane",
+                      "features": "Pool, Garden, Security System",
+                      "description": "Beautiful luxury villa with modern amenities"
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/11.2.0
+                    id: pair_33c471ceb2cf4ea8ab6c6e47ea789c21
+                  - id: pair_cd90e7a4bb67449a82d279c4d3fd1f36
+                    name: Accept
+                    value: application/json
+                    description: ""
+                    disabled: false
+                authentication:
+                  type: bearer
+                  token: 1|sIzA6WxdQuX9E7Ukt5a0yC3KojSWqp7w6XWsofRi89f64adf
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: "  http://127.0.0.1:8092/api/properties/9"
+                name: Get a property
+                meta:
+                  id: req_eb4662e1dfb74853abf67a3b37453310
+                  created: 1752136623673
+                  modified: 1752211899907
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752136598530.5
+                method: GET
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.2.0
+                authentication:
+                  type: bearer
+                  token: 1|sIzA6WxdQuX9E7Ukt5a0yC3KojSWqp7w6XWsofRi89f64adf
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: "  http://127.0.0.1:8092/api/properties/14"
+                name: Update a property
+                meta:
+                  id: req_69366cc9db26407baf27d22d6726b921
+                  created: 1752136650659
+                  modified: 1752218126790
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752136650659
+                method: PUT
+                body:
+                  mimeType: application/json
+                  text: >-
+                    {
+                      "title": "Villa",
+                      "price": 220000,
+                      "type": "villa",
+                      "status": "available",
+                      "bedrooms": 5,
+                      "bathrooms": 4,
+                      "square_feet": 4500,
+                      "address": "123 Luxury Lane",
+                      "features": "Pool, Garden, Security System",
+                      "description": "Beautiful luxury villa with modern amenities"
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/11.2.0
+                    id: pair_adaaae756ac4426b92de2ea7ac63e5b1
+                  - id: pair_5f46dae1476f4f97bdd3b1d47d00cb6e
+                    name: Accept
+                    value: application/json
+                    description: ""
+                    disabled: false
+                authentication:
+                  type: bearer
+                  token: 1|sIzA6WxdQuX9E7Ukt5a0yC3KojSWqp7w6XWsofRi89f64adf
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: "  http://127.0.0.1:8092/api/properties/9"
+                name: Delete a property
+                meta:
+                  id: req_effbcdeb5585492796ed352c6e3d479d
+                  created: 1752136664044
+                  modified: 1752230224863
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752136664044
+                method: DELETE
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.2.0
+                authentication:
+                  type: bearer
+                  token: 6|Qod8tSMukvNmx91iXMVJQS9vCc8M0ZVmTPYyp05611a48839
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+          - name: Dashboard
+            meta:
+              id: fld_265500f8fe7a4b0f9343d98720ccbcba
+              created: 1752136768805
+              modified: 1752136797220
+              sortKey: -1752129119924.5
+              description: ""
+            children:
+              - url: http://127.0.0.1:8092/api/dashboard
+                name: Dashboard
+                meta:
+                  id: req_29e65fd6dd6d4208bcd5874bfc2ad4e4
+                  created: 1752129076510
+                  modified: 1752229746822
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752136790088
+                method: GET
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.2.0
+                    id: pair_f87a91fb493f47c39fd7edcef08e7584
+                  - id: pair_a43297d806f948549101679846a27ccf
+                    name: Accept
+                    value: application/json
+                    description: ""
+                    disabled: false
+                authentication:
+                  type: bearer
+                  token: 6|Qod8tSMukvNmx91iXMVJQS9vCc8M0ZVmTPYyp05611a48839
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+          - name: Auth
+            meta:
+              id: fld_b3797ef8e2ef49ac9e2919ebe36d195d
+              created: 1752207056786
+              modified: 1752207056786
+              sortKey: -1752207056786
+              description: ""
+            children:
+              - url: http://localhost:8092/api/admin/login
+                name: Login
+                meta:
+                  id: req_5a7b8f5420ce4ba393bb2a0c67ba0e4c
+                  created: 1752207059427
+                  modified: 1752207849377
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752207059427
+                method: POST
+                body:
+                  mimeType: application/json
+                  text: |-
+                    {
+                      "user_email": "admin@gmail.com",
+                      "password": "admin123"
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                    id: pair_7f502b901ae348c89406da09269a0fd5
+                  - name: User-Agent
+                    value: insomnia/11.3.0
+                    id: pair_241b6d700c0844d7b5d64c78aa34bc3e
+                  - id: pair_1131ba30964b4aa2a0991acf4c48ca1a
+                    name: Accept
+                    value: application/json
+                    description: ""
+                    disabled: false
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: http://localhost:8092/api/admin/logout
+                name: Logout
+                meta:
+                  id: req_dc71caebd28c4aa5b2f9901ebb082368
+                  created: 1752207065917
+                  modified: 1752416808616
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752207065917
+                method: POST
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.3.0
+                    id: pair_7df8bcc2623746ad8b8bafc5824df40e
+                  - id: pair_4a71f170237a4f5ca1bdb145ccf596c1
+                    name: Accept
+                    value: application/json
+                    description: ""
+                    disabled: false
+                authentication:
+                  type: bearer
+                  token: 1|ZnqgYTGH55OGbtJ6EHxp4rDaVkm9KNUoOHlR25d17418677d
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+          - name: Support Ticket
+            meta:
+              id: fld_6ad26ddd508948ffb568776f11140e2c
+              created: 1752209352058
+              modified: 1752209352058
+              sortKey: -1752209352058
+              description: ""
+            children:
+              - url: " http://127.0.0.1:8092/api/tickets"
+                name: " List all tickets"
+                meta:
+                  id: req_7d56a0e6e03a4015804d0db711357757
+                  created: 1752209355041
+                  modified: 1752416818311
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752209355041
+                method: GET
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.3.0
+                authentication:
+                  type: bearer
+                  token: 1|ZnqgYTGH55OGbtJ6EHxp4rDaVkm9KNUoOHlR25d17418677d
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: " http://127.0.0.1:8092/api/tickets/5"
+                name: " Get single ticket"
+                meta:
+                  id: req_2d9ad35e3aa444aa9ae69dcee8143c78
+                  created: 1752209391342
+                  modified: 1752211623122
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752209391342
+                method: GET
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.3.0
+                authentication:
+                  type: bearer
+                  token: 1|sIzA6WxdQuX9E7Ukt5a0yC3KojSWqp7w6XWsofRi89f64adf
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: " http://127.0.0.1:8092/api/tickets/2"
+                name: Update ticket
+                meta:
+                  id: req_ec0757ccce8f4474840560dfb91f4622
+                  created: 1752209437147
+                  modified: 1752219024810
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752209437147
+                method: PUT
+                body:
+                  mimeType: application/json
+                  text: |-
+                    {
+                      "support_ticket_status": "Closed",
+                      "support_ticket_message": "Updated"
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/11.3.0
+                    id: pair_2094f988b3814a44ab1a21dbd9eb570b
+                  - id: pair_8c0e7a20f0f146cda3cfd7139896f06a
+                    name: Accept
+                    value: application/json
+                    description: ""
+                    disabled: false
+                authentication:
+                  type: bearer
+                  token: 1|sIzA6WxdQuX9E7Ukt5a0yC3KojSWqp7w6XWsofRi89f64adf
+                  disabled: false
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: " http://127.0.0.1:8092/api/tickets/2"
+                name: New Request
+                meta:
+                  id: req_a45017114d5547c088abc3e077d739ac
+                  created: 1752209441400
+                  modified: 1752219284854
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752209441400
+                method: DELETE
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.3.0
+                authentication:
+                  type: bearer
+                  token: 1|sIzA6WxdQuX9E7Ukt5a0yC3KojSWqp7w6XWsofRi89f64adf
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+          - name: Contacts
+            meta:
+              id: fld_170c82393c8a4baca90fd8ee8c2c6a6b
+              created: 1752209500239
+              modified: 1752209500239
+              sortKey: -1752209500239
+              description: ""
+            children:
+              - url: http://127.0.0.1:8092/api/contacts
+                name: List all contacts
+                meta:
+                  id: req_0a3d2045d4524ea39554bc25d3b80140
+                  created: 1752209502092
+                  modified: 1752415963732
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752209502092
+                method: GET
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.3.0
+                authentication:
+                  type: bearer
+                  token: 9|amH9FGT7CEwf5kgUKTLhz220mBrBwHEn5HPbctM7c43220f0
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: http://127.0.0.1:8092/api/contacts/1
+                name: Get single contact
+                meta:
+                  id: req_c4f810ffa3084250843d37713b5a886b
+                  created: 1752209517398
+                  modified: 1752211404061
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752209517398
+                method: GET
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.3.0
+                authentication:
+                  type: bearer
+                  token: 1|sIzA6WxdQuX9E7Ukt5a0yC3KojSWqp7w6XWsofRi89f64adf
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: http://127.0.0.1:8092/api/contacts/1
+                name: Update contact
+                meta:
+                  id: req_3efaa0e07bff471bb40fb4752063311c
+                  created: 1752209526306
+                  modified: 1752219546698
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752209526306
+                method: PUT
+                body:
+                  mimeType: application/json
+                  text: |-
+                    {
+                      "status": "Open"
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/11.3.0
+                    id: pair_ec441460d50044f2ba3f9d6f84c13a60
+                  - id: pair_6117317bb34f4b39bb6ad86f64995886
+                    name: Accpet
+                    value: application/json
+                    description: ""
+                    disabled: false
+                authentication:
+                  type: bearer
+                  token: 1|sIzA6WxdQuX9E7Ukt5a0yC3KojSWqp7w6XWsofRi89f64adf
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: " http://127.0.0.1:8092/api/contacts/{id}"
+                name: Delete contact
+                meta:
+                  id: req_1ba5ad54255d4c51bd9355c5eb21ace6
+                  created: 1752209534002
+                  modified: 1752210902988
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752209534002
+                method: DELETE
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.3.0
+                authentication:
+                  type: bearer
+                  token: 1|sIzA6WxdQuX9E7Ukt5a0yC3KojSWqp7w6XWsofRi89f64adf
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+          - name: Utility Request
+            meta:
+              id: fld_871a37fc00cd484eabc9abe71c58e6cb
+              created: 1752209717502
+              modified: 1752209717502
+              sortKey: -1752209717502
+              description: ""
+            children:
+              - url: " http://127.0.0.1:8092/api/utility-requests"
+                name: " List all utility requests"
+                meta:
+                  id: req_fe518ffd922d4545987c3d51c68719ae
+                  created: 1752209724450
+                  modified: 1752415933976
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752209724450
+                method: GET
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.3.0
+                authentication:
+                  type: bearer
+                  token: 9|amH9FGT7CEwf5kgUKTLhz220mBrBwHEn5HPbctM7c43220f0
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: " http://127.0.0.1:8092/api/utility-requests/11"
+                name: Get single utility request
+                meta:
+                  id: req_cfdfd0d9067c4c5f822f388417f2eb5e
+                  created: 1752209732105
+                  modified: 1752219590735
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752209732105
+                method: GET
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.3.0
+                    id: pair_1b92d6c3d69e4da8a4c0a24f75d20386
+                  - id: pair_582bae40570446ecb7be04b69c07cf20
+                    name: Accept
+                    value: application/json
+                    description: ""
+                    disabled: false
+                authentication:
+                  type: bearer
+                  token: 1|sIzA6WxdQuX9E7Ukt5a0yC3KojSWqp7w6XWsofRi89f64adf
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: " http://127.0.0.1:8092/api/utility-requests/11"
+                name: Update utility request
+                meta:
+                  id: req_0964f97c54ec41ee9536db6f0d0d300e
+                  created: 1752209739389
+                  modified: 1752220502558
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752209739389
+                method: PUT
+                body:
+                  mimeType: application/json
+                  text: >-
+                    {
+                        "user_id": 18,
+                        "id": 4,
+                        "utility_request_description": "Please fix the water leak in the kitchen.",
+                        "utility_request_status": "in Progress"
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                    id: pair_ed043fc65b36446a8444c7cc204cc064
+                  - name: User-Agent
+                    value: insomnia/11.3.0
+                    id: pair_e9b80432f3524fa4baccaf77339c6fcb
+                  - id: pair_e2222b4ba37346b084ae4b79d1ec708e
+                    name: Accept
+                    value: application/json
+                    description: ""
+                    disabled: false
+                authentication:
+                  type: bearer
+                  token: 1|sIzA6WxdQuX9E7Ukt5a0yC3KojSWqp7w6XWsofRi89f64adf
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: " http://127.0.0.1:8092/api/utility-requests/11"
+                name: Delete utility request
+                meta:
+                  id: req_ccc1f3e25825474cab58fb53a42d6ff8
+                  created: 1752209746362
+                  modified: 1752220736503
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1752209746362
+                method: DELETE
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.3.0
+                authentication:
+                  type: bearer
+                  token: 1|sIzA6WxdQuX9E7Ukt5a0yC3KojSWqp7w6XWsofRi89f64adf
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_32d0b8af2aee84b7b8b52fa09589d8e21123d1a9
+    created: 1742787366874
+    modified: 1752131234822
+  cookies:
+    - key: XSRF-TOKEN
+      value: eyJpdiI6Ilp5Z0VOaElFY0ZNMHBhMHpQdm5QNFE9PSIsInZhbHVlIjoiRExFRDE0Q2lhbmhqdGxGZ0R1R0RDa3RBWXVMNGdueHJBT1g3V1RSQm82Y0JGelE0L1UvOG8yeVZYL2NNTmJEdFNhbVpxUU1Jb24vYjlabHhpVGxSbXJVTTBzTVg4Ym92Vm1qK1lVN3V1UTlyY3FnSUk4eUZweXFyM0pCck5FUnYiLCJtYWMiOiI5NjYxYTY0MTBiOTczOWY5ZDhkMGZiMjFlM2RkNDU4Nzc3ZjhlZDE2OTcyNTBmZTYxNTg1ZDZlYmQ2ZWExMzA0IiwidGFnIjoiIn0%3D
+      maxAge: 7200
+      domain: 127.0.0.1
+      path: /
+      hostOnly: true
+      creation: 2025-07-07T09:02:39.803Z
+      lastAccessed: 2025-07-10T07:07:14.820Z
+      sameSite: lax
+      id: 4c545019-c3fe-49c5-8cf5-1815dff21f88
+    - key: laravel_session
+      value: eyJpdiI6IkxXSlVUbEl1UDBsRkhrUWNLcjN1WkE9PSIsInZhbHVlIjoiTndMZkJzYXRGSXN5TjIyNTR1ZjNHNk5BeHV0NWp0aFBVR1dEWmtsenBPNUhUTkpubFlrOFFOUUJvMnpnUFZZdVg0S1huQTJvdW5tUTNPUldpTGFTN1FSZm54aFFXTElrMThsTjhkSSttejJ0ekhrRnZrZjBYU1pjeFVNNGVlcDciLCJtYWMiOiJhYmY3MWI5YjE4YWE3ZWM1YWRkMDEzYjdhNGNmMTg5ZTI0NGJkY2RkZmY3ZDU5NGY3YzhhNjdjYTQ4YTFmZjM5IiwidGFnIjoiIn0%3D
+      maxAge: 7200
+      domain: 127.0.0.1
+      path: /
+      httpOnly: true
+      hostOnly: true
+      creation: 2025-07-07T09:02:39.804Z
+      lastAccessed: 2025-07-10T07:07:14.822Z
+      sameSite: lax
+      id: b85ca018-26fe-4ae7-8d1a-6eeb64698f35
+environments:
+  name: Base Environment
+  meta:
+    id: env_32d0b8af2aee84b7b8b52fa09589d8e21123d1a9
+    created: 1742787366872
+    modified: 1742787366872
+    isPrivate: false

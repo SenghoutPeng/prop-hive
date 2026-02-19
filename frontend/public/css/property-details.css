@@ -1,0 +1,355 @@
+/* Styles specific to the "Property Details" page */
+
+.property-details-page {
+    background-color: #fdfaf5;
+    padding: 60px 0;
+}
+
+/* Top Image Gallery */
+.property-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-bottom: 80px;
+}
+
+.gallery-item {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.gallery-caption {
+    padding: 20px;
+}
+
+.gallery-caption h3 {
+    margin: 0 0 5px 0;
+}
+
+.gallery-caption p {
+    margin: 0;
+    color: #666;
+}
+
+/* Main Content Area */
+.property-main-content {
+    display: flex;
+    gap: 80px;
+    align-items: flex-start;
+}
+
+.description-column {
+    flex: 1;
+}
+
+.form-column {
+    flex: 1;
+}
+
+.section-title {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+/* Description Column Styles */
+.description-text {
+    font-size: 1.1em;
+    line-height: 1.7;
+    margin-bottom: 40px;
+}
+
+.features-list {
+    display: grid;
+    gap: 30px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.feature-item img {
+    height: 60px;
+    width: 60px;
+    object-fit: contain;
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.feature-text h4 {
+    margin: 0 0 5px 0;
+    font-size: 1.2em;
+}
+
+.feature-text p {
+    margin: 0;
+    color: #666;
+    line-height: 1.5;
+}
+
+
+/* Form Column Styles */
+.form-subtitle {
+    margin-bottom: 30px;
+    color: #666;
+}
+
+.contact-form .form-group {
+    margin-bottom: 25px;
+}
+
+.contact-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.contact-form .required-text {
+    display: block;
+    font-size: 0.8em;
+    color: #888;
+    margin-top: 5px;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background-color: #000;
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #333;
+}
+
+.modern-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+.property-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2.5rem;
+}
+.property-header-info {
+    flex: 1;
+}
+.property-header-image {
+    width: 220px;
+    height: 160px;
+    background: #f5f5f5;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: #bbb;
+}
+
+.property-main-content {
+    display: flex;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+}
+.property-gallery {
+    flex: 1.2;
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+}
+.gallery-item {
+    min-width: 120px;
+    height: 90px;
+    background: #f0f0f0;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #bbb;
+    font-size: 0.95rem;
+}
+.property-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+.property-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 2rem;
+}
+.info-item {
+    font-size: 1.08rem;
+    color: #444;
+    background: #f8f8f8;
+    border-radius: 7px;
+    padding: 0.7rem 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+.property-description-section ul {
+    margin: 0 0 0 1.2rem;
+    padding: 0;
+}
+.property-description-section li {
+    margin-bottom: 0.5rem;
+    font-size: 1.05rem;
+}
+.agent-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+}
+.agent-info-flex {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+.agent-avatar-placeholder {
+    width: 80px;
+    height: 80px;
+    background: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #bbb;
+    font-size: 1.2rem;
+}
+.agent-details h3 {
+    margin: 0 0 0.2rem 0;
+}
+.property-map-section {
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f8f8;
+    border-radius: 12px;
+    color: #bbb;
+    font-size: 1.1rem;
+}
+.similar-properties-section {
+    margin-top: 2.5rem;
+}
+.similar-properties-grid {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+.similar-property-card {
+    background: #fafafa;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    padding: 1rem 1.2rem;
+    min-width: 180px;
+    max-width: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+}
+.similar-info h3 {
+    margin: 0 0 0.2rem 0;
+    font-size: 1.1rem;
+}
+.similar-info .price {
+    color: #ffd600;
+    font-weight: bold;
+    margin-bottom: 0.1rem;
+}
+.similar-info .location {
+    color: #888;
+    font-size: 0.97rem;
+}
+
+@media (max-width: 900px) {
+    .property-main-content {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    .property-header {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: flex-start;
+    }
+    .property-header-image {
+        width: 100%;
+        height: 180px;
+    }
+    .property-gallery {
+        flex-direction: row;
+        gap: 0.5rem;
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .modern-card {
+        padding: 1rem;
+    }
+    .property-header-image {
+        height: 120px;
+    }
+    .property-gallery {
+        gap: 0.3rem;
+    }
+    .gallery-item {
+        min-width: 80px;
+        height: 60px;
+    }
+    .property-info-grid {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+    .similar-properties-grid {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+}
+
+.property-card, .similar-property-card {
+    transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
+    cursor: pointer;
+}
+.property-card:active, .similar-property-card:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}

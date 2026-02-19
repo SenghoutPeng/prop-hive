@@ -1,0 +1,124 @@
+/* Styles specific to the "Payment History" page */
+
+.payment-history-page {
+    background-color: #fdfaf5;
+    padding: 60px 0;
+}
+
+/* Payment History Hero */
+.payment-hero {
+    border: 3px dotted #a0c4ff; /* Light blue dotted border */
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.payment-hero h2 {
+    font-size: 2.5em;
+    margin: 0 0 10px 0;
+}
+
+.payment-hero p {
+    font-size: 1.1em;
+    color: #666;
+    margin: 0;
+}
+
+/* Section Divider */
+.section-divider {
+    height: 10px;
+    background-color: #007bff; /* Blue color from the image */
+    margin: 40px 0;
+}
+
+/* Payments Section */
+.payments-section {
+    display: flex;
+    gap: 60px;
+    align-items: flex-start;
+    padding: 40px 0;
+}
+
+.payments-title-column {
+    flex: 0 0 30%;
+}
+
+.payments-title-column h3 {
+    font-size: 2em;
+    margin: 0 0 10px 0;
+}
+
+.payments-title-column p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.transaction-list-column {
+    flex: 1;
+}
+
+.transaction-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.transaction-item:last-child {
+    border-bottom: none;
+}
+
+.transaction-main {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.transaction-icon {
+    width: 45px;
+    height: 45px;
+    padding: 5px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+}
+
+.transaction-details h4 {
+    margin: 0 0 5px 0;
+    font-size: 1.1em;
+}
+
+.transaction-details p {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+.transaction-amount p {
+    margin: 0;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+/* Status-specific styles */
+.status-completed {
+    color: #2e7d32; /* Green */
+}
+
+.status-pending {
+    color: #f57c00; /* Orange */
+}
+
+.status-failed {
+    color: #d32f2f; /* Red */
+}
+
+.transaction-amount.refund p {
+    color: #2e7d32; /* Green for refunds */
+}

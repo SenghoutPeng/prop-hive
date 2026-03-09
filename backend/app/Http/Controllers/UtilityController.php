@@ -11,6 +11,18 @@ use Illuminate\Support\Facades\Auth;
 
 class UtilityController extends Controller
 {
+    private function normalizeUtilityInput(Request $request): void
+    {
+        $request->merge([
+            'utility_bill_amount' => is_string($request->input('utility_bill_amount'))
+                ? preg_replace('/[^0-9.\-]/', '', $request->input('utility_bill_amount'))
+                : $request->input('utility_bill_amount'),
+            'utility_bill_usage' => is_string($request->input('utility_bill_usage'))
+                ? preg_replace('/[^0-9.\-]/', '', $request->input('utility_bill_usage'))
+                : $request->input('utility_bill_usage'),
+        ]);
+    }
+
     public function index()
     {
         $utilityBills = UtilityBill::all();
@@ -24,6 +36,8 @@ class UtilityController extends Controller
 
     public function store(Request $request)
     {
+        $this->normalizeUtilityInput($request);
+
         $validatedData = $request->validate([
             'user_id' => 'required|exists:user,user_id',
             'property_id' => 'required|exists:properties,id',
@@ -63,6 +77,8 @@ class UtilityController extends Controller
 
     public function update(Request $request, UtilityBill $utilityBill)
     {
+        $this->normalizeUtilityInput($request);
+
         $validatedData = $request->validate([
             'user_id' => 'required|exists:user,user_id',
             'property_id' => 'required|exists:properties,id',

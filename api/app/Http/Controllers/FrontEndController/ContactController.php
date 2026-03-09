@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\FrontEndController;
 
-use Illuminate\Http\Request;
 use App\Models\FrontendModel\Contact;
 use App\Models\FrontendModel\SupportTicket;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ContactController extends Controller
 {
     public function submit(Request $request)
     {
         try {
-            \Log::info('Contact form submitted', $request->all());
+            Log::info('Contact form submitted', $request->all());
             $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|max:255',

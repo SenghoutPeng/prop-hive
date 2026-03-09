@@ -2,29 +2,29 @@
 
 namespace App\Http\Controllers\FrontEndController;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use App\Models\FrontendModel\User;
 use App\Http\Controllers\Controller;
+use App\Models\FrontendModel\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
     public function login(Request $request)
     {
         try {
-            \Log::info('Login method called', ['request' => $request->all()]);
+            Log::info('Login method called', ['request' => $request->all()]);
             $credentials = $request->validate([
                 'user_email' => 'required|email',
                 'password' => 'required',
             ]);
 
-            \Log::info('Login attempt', $credentials);
+            Log::info('Login attempt', $credentials);
             $user = User::where('user_email', $credentials['user_email'])->first();
-            \Log::info('User found', ['user' => $user]);
-            
+            Log::info('User found', ['user' => $user]);
+
             if ($user) {
-                \Log::info('Password check', [
+                Log::info('Password check', [
                     'input' => $credentials['password'],
                     'db' => $user->user_password,
                     'match' => Hash::check($credentials['password'], $user->user_password)
@@ -34,7 +34,7 @@ class AuthController extends Controller
             if (Hash::check($credentials['password'], $user->user_password)) {
                 // For API, we'll use Sanctum tokens instead of session
                 $token = $user->createToken('auth-token')->plainTextToken;
-                
+
                 return response()->json([
                     'success' => true,
                     'message' => 'Login successful',
@@ -70,7 +70,7 @@ class AuthController extends Controller
         try {
             // Revoke the token
             $request->user()->currentAccessToken()->delete();
-            
+
             return response()->json([
                 'success' => true,
                 'message' => 'Logged out successfully'
@@ -135,4 +135,4 @@ class AuthController extends Controller
             ], 500);
         }
     }
-} 
+}

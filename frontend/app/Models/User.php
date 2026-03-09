@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -81,6 +82,44 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'is_admin' => 'boolean',
     ];
+
+    protected $appends = [
+        'profile_picture_url',
+    ];
+
+    public function setUserProfilePictureAttribute($value): void
+    {
+        if (!$value) {
+            $this->attributes['user_profile_picture'] = null;
+            return;
+        }
+
+        $path = ltrim((string) $value, '/');
+
+        if (filter_var($path, FILTER_VALIDATE_URL)) {
+            $parsedPath = parse_url($path, PHP_URL_PATH);
+            $path = $parsedPath ? ltrim($parsedPath, '/') : $path;
+        }
+
+        if (str_starts_with($path, 'storage/')) {
+            $path = substr($path, strlen('storage/'));
+        }
+
+        $this->attributes['user_profile_picture'] = $path;
+    }
+
+    public function getProfilePictureUrlAttribute(): ?string
+    {
+        if (!$this->user_profile_picture) {
+            return null;
+        }
+
+        if (filter_var($this->user_profile_picture, FILTER_VALIDATE_URL)) {
+            return $this->user_profile_picture;
+        }
+
+        return Storage::url($this->user_profile_picture);
+    }
 
     /**
      * Get the password for the user.

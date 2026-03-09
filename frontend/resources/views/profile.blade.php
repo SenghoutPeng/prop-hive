@@ -27,34 +27,34 @@
                     <form class="profile-form" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" data-validate="true">
                         @csrf
                         <div class="avatar-section">
-                            @if($user && $user->user_profile_picture)
-                                <img src="/{{ $user->user_profile_picture }}" alt="Profile Avatar" class="avatar-preview" id="avatarPreview">
+                            @if($user && $user->profile_picture_url)
+                                <img src="{{ $user->profile_picture_url }}" alt="Profile Avatar" class="avatar-preview" id="avatarPreview">
                             @else
                                 <img src="{{ asset('image/teto.jpg') }}" alt="Profile Avatar" class="avatar-preview" id="avatarPreview">
                             @endif
                             <input type="file" class="avatar-input" accept="image/*" id="avatarInput" name="avatar" style="display:none;">
                             <label for="avatarInput" class="avatar-upload-btn">Change Photo</label>
                         </div>
-                        
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="first_name">Full Name *</label>
                                 <input type="text" id="first_name" name="first_name" value="{{ $user ? $user->user_name : '' }}" required>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="email">Email Address *</label>
                             <input type="email" id="email" name="email" value="{{ $user ? $user->user_email : '' }}" required>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="phone">Phone Number</label>
                             <input type="tel" id="phone" name="phone" value="{{ $user ? $user->user_phone : '' }}">
                         </div>
-                        
+
                         <!-- Address field removed -->
-                        
+
                         <button type="submit" class="btn btn-primary">Update Profile</button>
                     </form>
                 </div>
@@ -72,7 +72,7 @@
                                 <p>Properties Viewed</p>
                             </div>
                         </div>
-                        
+
                         <div class="stat-card">
                             <div class="stat-icon">
                                 <i class="fas fa-heart"></i>
@@ -82,7 +82,7 @@
                                 <p>Favorites</p>
                             </div>
                         </div>
-                        
+
                         <div class="stat-card">
                             <div class="stat-icon">
                                 <i class="fas fa-calendar"></i>
@@ -92,7 +92,7 @@
                                 <p>Viewings Scheduled</p>
                             </div>
                         </div>
-                        
+
                         <div class="stat-card">
                             <div class="stat-icon">
                                 <i class="fas fa-envelope"></i>
@@ -134,7 +134,7 @@
                                 Email Notifications
                             </label>
                         </div>
-                        
+
                         <div class="preference-item">
                             <label class="checkbox-label">
                                 <input type="checkbox" class="preference-toggle" name="sms_notifications">
@@ -142,7 +142,7 @@
                                 SMS Notifications
                             </label>
                         </div>
-                        
+
                         <div class="preference-item">
                             <label class="checkbox-label">
                                 <input type="checkbox" class="preference-toggle" name="property_alerts" checked>
@@ -150,7 +150,7 @@
                                 New Property Alerts
                             </label>
                         </div>
-                        
+
                         <div class="preference-item">
                             <label class="checkbox-label">
                                 <input type="checkbox" class="preference-toggle" name="market_updates">
@@ -175,7 +175,7 @@
                                 <span class="slider"></span>
                             </label>
                         </div>
-                        
+
                         <div class="notification-item">
                             <div class="notification-info">
                                 <h4>Price Changes</h4>
@@ -186,7 +186,7 @@
                                 <span class="slider"></span>
                             </label>
                         </div>
-                        
+
                         <div class="notification-item">
                             <div class="notification-info">
                                 <h4>New Listings</h4>
@@ -197,7 +197,7 @@
                                 <span class="slider"></span>
                             </label>
                         </div>
-                        
+
                         <div class="notification-item">
                             <div class="notification-info">
                                 <h4>Agent Messages</h4>

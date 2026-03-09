@@ -24,6 +24,9 @@ return new class extends Migration
             $table->string('user_phone')->nullable();
             $table->string('user_profile_picture')->nullable();
             $table->boolean('is_admin')->default(false);
+            $table->timestamp('email_verified_at')->nullable();
+            $table->rememberToken();
+            $table->timestamps();
         });
     }
 

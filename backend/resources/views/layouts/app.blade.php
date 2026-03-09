@@ -13,7 +13,7 @@
             {{ session('status') }}
         </div>
     @endif
-    @if ($errors->any())
+    @if ($errors->any() && !View::hasSection('suppressGlobalErrors'))
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)

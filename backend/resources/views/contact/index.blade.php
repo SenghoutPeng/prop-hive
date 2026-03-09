@@ -14,29 +14,33 @@
             </div>
         @endif
         @foreach ($contacts as $contact)
-        <div class="ticket-item">
-            <div class="tenant-info">
-                <img src="{{ asset('images/avatar.png') }}" class="tenant-avatar" alt="User Avatar">
-                <div>
-                    <p class="tenant-name">{{ $contact->name ?? 'N/A' }}</p>
-                    <p class="tenant-apartment">Subject: {{ $contact->subject }}</p>
+        <div class="flex justify-center">
+            <div class="flex">
+                <div class="flex ">
+                <div class="tenant-info">
+                    <img src="{{ asset('images/avatar.png') }}" class="tenant-avatar" alt="User Avatar">
+                    <div>
+                        <p class="tenant-name">{{ $contact->name ?? 'N/A' }}</p>
+                        <p class="tenant-apartment">Subject: {{ $contact->subject }}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="tenant-lease">
-                Status: <strong>{{ $contact->status }}</strong><br>
-                Created: {{ $contact->created_at }}<br>
-                Replied: {{ $contact->replied_at ?? 'N/A' }}
-            </div>
-            <div class="transaction-actions">
-                <button type="button" class="btn btn-save" onclick="showDetails('contact-details-{{ $contact->id }}')">View Details</button>
-                <a href="{{ route('contact.edit', $contact->id) }}"><img src="{{ asset('images/edit-icon.png') }}" alt="Edit" class="action-icon"></a>
-                <form action="{{ route('contact.destroy', $contact->id) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" onclick="return confirm('Are you sure?')" style="border:none; background:none; cursor:pointer; padding:0;">
-                        <img src="{{ asset('images/delete-icon.png') }}" alt="Delete" class="action-icon">
-                    </button>
-                </form>
+                <div class="tenant-lease">
+                    Status: <strong>{{ $contact->status }}</strong><br>
+                    Created: {{ $contact->created_at }}<br>
+                    Replied: {{ $contact->replied_at ?? 'N/A' }}
+                </div>
+                </div>
+                <div class="transaction-actions">
+                    <button type="button" class="btn btn-save" onclick="showDetails('contact-details-{{ $contact->id }}')">View Details</button>
+                    <a href="{{ route('contact.edit', $contact->id) }}"><img src="{{ asset('images/edit-icon.png') }}" alt="Edit" class="action-icon"></a>
+                    <form action="{{ route('contact.destroy', $contact->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" onclick="return confirm('Are you sure?')" style="border:none; background:none; cursor:pointer; padding:0;">
+                            <img src="{{ asset('images/delete-icon.png') }}" alt="Delete" class="action-icon">
+                        </button>
+                    </form>
+                </div>
             </div>
             <div id="contact-details-{{ $contact->id }}" style="display:none;">
                 <h3>Property Request Details</h3>
@@ -74,4 +78,4 @@ function closeDetails() {
 }
 </script>
 @endpush
-@endsection 
+@endsection

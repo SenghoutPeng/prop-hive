@@ -1,10 +1,16 @@
 @extends('layouts.app')
+@section('suppressGlobalErrors', '1')
 @section('content')
 <div class="page-container">
     <div class="page-header">
         <h1>Manage Consumer Utility Usage</h1>
         <p>Create, edit, or delete bills for water and electricity usage.</p>
     </div>
+    @if ($errors->any())
+        <div class="alert alert-danger" style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+            <ul>@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>
+        </div>
+    @endif
     <div class="utility-body">
         <div class="utility-list">
             <h2>Utility Bills</h2>
@@ -36,6 +42,7 @@
                         </form>
                     </div>
                 </div>
+
                 <div id="utility-details-{{ $bill->utility_bill_id }}" style="display:none;">
                     <h3>Utility Bill Details</h3>
                     <ul>
@@ -54,19 +61,14 @@
         </div>
         <div class="form-card">
             <h2>Add Utility Bill</h2>
-            @if ($errors->any())
-                <div class="alert alert-danger" style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
-                    <ul>@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>
-                </div>
-            @endif
             <form action="{{ route('utility.store') }}" method="POST">
                 @csrf
                 <div class="form-group"><label>User</label><select name="user_id">@foreach($users as $user)<option value="{{ $user->user_id }}">{{ $user->user_name }}</option>@endforeach</select></div>
                 <div class="form-group"><label>Property</label><select name="property_id">@foreach($properties as $property)<option value="{{ $property->id }}">{{ $property->title }}</option>@endforeach</select></div>
                 <div class="form-group"><label>Utility Type</label><select name="utility_bill_type">@foreach($types as $type)<option value="{{ $type }}">{{ $type }}</option>@endforeach</select></div>
                 <div class="form-group"><label>Status</label><select name="utility_bill_status">@foreach($statuses as $status)<option value="{{ $status }}">{{ $status }}</option>@endforeach</select></div>
-                <div class="form-group"><label>Amount</label><input type="text" name="utility_bill_amount" placeholder="Enter bill amount" value="{{ old('utility_bill_amount') }}"></div>
-                <div class="form-group"><label>Usage</label><input type="text" name="utility_bill_usage" placeholder="Enter usage amount (e.g., 250)" value="{{ old('utility_bill_usage') }}"></div>
+                <div class="form-group"><label>Amount</label><input type="number" step="0.01" min="0" name="utility_bill_amount" placeholder="Enter bill amount" value="{{ old('utility_bill_amount') }}"></div>
+                <div class="form-group"><label>Usage</label><input type="number" step="0.01" min="0" name="utility_bill_usage" placeholder="Enter usage amount (e.g., 250)" value="{{ old('utility_bill_usage') }}"></div>
                 <div class="form-group"><label>Invoice Date</label><input type="date" name="utility_bill_date" value="{{ old('utility_bill_date') }}"></div>
                 <div class="form-group"><label>Due Date</label><input type="date" name="utility_bill_due_date" value="{{ old('utility_bill_due_date') }}"></div>
                 <div class="form-actions"><button type="submit" class="btn btn-save">Save Bill</button></div>

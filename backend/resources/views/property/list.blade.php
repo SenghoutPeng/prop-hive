@@ -9,7 +9,7 @@
     <div class="property-list-grid">
         @foreach($properties as $property)
         <div class="property-list-card">
-            <img src="{{ $property->images ? asset('storage/' . $property->images) : asset('images/house.jpeg') }}" alt="Property Image" class="property-list-image">
+            <img src="{{ $property->image_url ?? asset('images/house.jpeg') }}" alt="Property Image" class="property-list-image">
             <div class="property-list-details">
                 <h3>{{ $property->title }}</h3>
                 <p>{{ Str::limit($property->description, 120) }}</p>

@@ -6,9 +6,38 @@ use Illuminate\Http\Request;
 use App\Models\Property;
 use App\Models\UtilityRequest;
 use App\Models\Payment;
+use Illuminate\Support\Facades\Storage;
 
 class PageController extends Controller
 {
+    private function imageDisk(): string
+    {
+        $disk = config('filesystems.default', 'public');
+
+        // In local dev, /storage URLs are served from the public disk target.
+        return $disk === 'local' ? 'public' : $disk;
+    }
+
+    private function normalizeStoredPath(?string $path): ?string
+    {
+        if (!$path) {
+            return null;
+        }
+
+        if (filter_var($path, FILTER_VALIDATE_URL)) {
+            $parsedPath = parse_url($path, PHP_URL_PATH);
+            $path = $parsedPath ?: $path;
+        }
+
+        $path = ltrim($path, '/');
+
+        if (str_starts_with($path, 'storage/')) {
+            $path = substr($path, strlen('storage/'));
+        }
+
+        return $path;
+    }
+
     public function home()
     {
         return view('homepage');
@@ -75,7 +104,7 @@ class PageController extends Controller
             'property_id' => 'nullable|integer|exists:properties,id',
             'user_id' => 'nullable|integer|exists:user,user_id',
         ]);
-        
+
         if (empty($validated['user_id']) && !auth()->check()) {
             \Log::error('Missing user_id for utility request', $validated);
             return redirect()->back()->with('error', 'Missing user information.');
@@ -89,7 +118,7 @@ class PageController extends Controller
             'property_id' => $validated['property_id'] ?? null,
             'user_id' => $validated['user_id'] ?? (auth()->check() ? auth()->user()->user_id : null),
         ]);
-    
+
         return redirect()->back()->with('success', 'Utility request submitted!');
     }
     public function editTenant()
@@ -145,12 +174,17 @@ public function descrip(Request $request)
         $user->user_phone = $validated['phone'] ?? null;
 
         if ($request->hasFile('avatar')) {
-            $avatarPath = $request->file('avatar')->store('avatars', 'public');
-            $user->user_profile_picture = 'storage/' . $avatarPath;
+            $oldPath = $this->normalizeStoredPath($user->user_profile_picture);
+            if ($oldPath) {
+                Storage::disk($this->imageDisk())->delete($oldPath);
+            }
+
+            $avatarPath = $request->file('avatar')->store('avatars', $this->imageDisk());
+            $user->user_profile_picture = $avatarPath;
         }
 
         $user->save();
 
         return redirect()->back()->with('success', 'Profile updated successfully!');
     }
-} 
+}

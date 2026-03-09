@@ -4,11 +4,45 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
 use App\Models\Property;
 
 class PropertyController extends Controller
 {
+    private function imageDisk(): string
+    {
+        $disk = config('filesystems.default', 'public');
+
+        // In local dev, /storage URLs are served from the public disk target.
+        return $disk === 'local' ? 'public' : $disk;
+    }
+
+    private function normalizeStoredPath($path): ?string
+    {
+        if (!$path) {
+            return null;
+        }
+
+        if (is_array($path)) {
+            $path = $path[0] ?? null;
+            if (!$path) {
+                return null;
+            }
+        }
+
+        if (filter_var($path, FILTER_VALIDATE_URL)) {
+            $parsedPath = parse_url($path, PHP_URL_PATH);
+            $path = $parsedPath ?: $path;
+        }
+
+        $path = ltrim($path, '/');
+
+        if (str_starts_with($path, 'storage/')) {
+            $path = substr($path, strlen('storage/'));
+        }
+
+        return $path;
+    }
+
     public function index()
     {
         $properties = Property::orderBy('id', 'desc')->take(4)->get();
@@ -39,7 +73,7 @@ class PropertyController extends Controller
 
         $propertyData = $validated;
         if ($request->hasFile('images')) {
-            $path = $request->file('images')->store('properties', 'public');
+            $path = $request->file('images')->store('properties', $this->imageDisk());
             $propertyData['images'] = $path;
         } else {
             $propertyData['images'] = null;
@@ -73,9 +107,12 @@ class PropertyController extends Controller
         $propertyData = $validated;
         if ($request->hasFile('images')) {
             if ($property->images) {
-                Storage::disk('public')->delete($property->images);
+                $oldPath = $this->normalizeStoredPath($property->images);
+                if ($oldPath) {
+                    Storage::disk($this->imageDisk())->delete($oldPath);
+                }
             }
-            $path = $request->file('images')->store('properties', 'public');
+            $path = $request->file('images')->store('properties', $this->imageDisk());
             $propertyData['images'] = $path;
         } else {
             // If no new image uploaded, keep the old one
@@ -88,7 +125,10 @@ class PropertyController extends Controller
     public function destroy(Property $property)
     {
         if ($property->images) {
-            Storage::disk('public')->delete($property->images);
+            $storedPath = $this->normalizeStoredPath($property->images);
+            if ($storedPath) {
+                Storage::disk($this->imageDisk())->delete($storedPath);
+            }
         }
         $property->delete();
         return redirect()->route('property.index')->with('success', 'Property deleted successfully!');

@@ -1,10 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
 use App\Http\Controllers\BackEndController\DashboardController;
 use App\Http\Controllers\BackEndController\PaymentController;
 use App\Http\Controllers\BackEndController\PropertyController;
@@ -20,10 +16,7 @@ use App\Http\Controllers\FrontEndController\AuthController as FrontEndAuthContro
 use App\Http\Controllers\FrontEndController\SupportTicketController;
 use Illuminate\Support\Facades\Log;
 
-// API Routes - All responses will be JSON
 
-// Frontend Routes (Public/User Access)
-    // Public authentication routes
     Route::post('/user/login', [FrontEndAuthController::class, 'login']);
     Route::post('/register', [FrontEndAuthController::class, 'register']);
     Route::post('/user/logout', [FrontEndAuthController::class, 'logout']);
@@ -71,55 +64,54 @@ Route::get('/login', function () {
 })->name('login');
 
 
-// Backend Routes (Admin/Management)
-// Protected API routes (require authentication)
+
 Route::middleware('auth:sanctum')->group(function () {
-    // Admin logout route
+
     Route::post('/admin/logout', [BackEndAuthController::class, 'logout']);
 
-    // Dashboard API
+
     Route::get('/dashboard', [DashboardController::class, 'index']);
-    
-    // Utility Management API
+
+  
     Route::get('/utilities', [UtilityController::class, 'index']);
     Route::post('/utilities', [UtilityController::class, 'store']);
     Route::get('/utilities/{id}', [UtilityController::class, 'show']);
     Route::put('/utilities/{id}', [UtilityController::class, 'update']);
     Route::delete('/utilities/{id}', [UtilityController::class, 'destroy']);
-    
+
     // Payment Management API
     Route::get('/payments', [PaymentController::class, 'index']);
     Route::post('/payments', [PaymentController::class, 'store']);
     Route::get('/payments/{payment}', [PaymentController::class, 'show']);
     Route::put('/payments/{payment}', [PaymentController::class, 'update']);
     Route::delete('/payments/{payment}', [PaymentController::class, 'destroy']);
-    
+
     // Tenant Management API
     Route::get('/tenants', [TenantController::class, 'index']);
     Route::post('/tenants', [TenantController::class, 'store']);
     Route::get('/tenants/{user}', [TenantController::class, 'show']);
     Route::put('/tenants/{user}', [TenantController::class, 'update']);
     Route::delete('/tenants/{user}', [TenantController::class, 'destroy']);
-    
+
     // Property Management API
     Route::get('/properties', [PropertyController::class, 'index']);
     Route::post('/properties', [PropertyController::class, 'store']);
     Route::get('/properties/{property}', [PropertyController::class, 'show']);
     Route::put('/properties/{property}', [PropertyController::class, 'update']);
     Route::delete('/properties/{property}', [PropertyController::class, 'destroy']);
-    
+
     // Ticket Management API
     Route::get('/tickets', [TicketController::class, 'index']);
     Route::get('/tickets/{ticket}', [TicketController::class, 'show']);
     Route::put('/tickets/{ticket}', [TicketController::class, 'update']);
     Route::delete('/tickets/{ticket}', [TicketController::class, 'destroy']);
-    
+
     // Contact/Property Requests API
     Route::get('/contacts', [BackEndContactController::class, 'index']);
     Route::get('/contacts/{contact}', [BackEndContactController::class, 'show']);
     Route::put('/contacts/{contact}', [BackEndContactController::class, 'update']);
     Route::delete('/contacts/{contact}', [BackEndContactController::class, 'destroy']);
-    
+
     // Utility Request Management API
     Route::get('/utility-requests', [UtilityRequestController::class, 'index']);
     Route::get('/utility-requests/{id}', [UtilityRequestController::class, 'show']);

@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\BackEndController;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
 use App\Models\BackendModel\Property;
 use App\Http\Controllers\Controller;
 
@@ -14,7 +12,7 @@ class PropertyController extends Controller
     {
         try {
             $properties = Property::orderBy('id', 'desc')->take(4)->get();
-            
+
             return response()->json([
                 'success' => true,
                 'data' => $properties->map(function ($property) {
@@ -31,6 +29,7 @@ class PropertyController extends Controller
                         'features' => $property->features,
                         'description' => $property->description,
                         'images' => $property->images,
+                        'image_url' => $property->image_url,
                         'created_at' => $property->created_at,
                         'updated_at' => $property->updated_at
                     ];
@@ -49,7 +48,7 @@ class PropertyController extends Controller
     {
         try {
             $properties = Property::orderBy('id', 'desc')->get();
-            
+
             return response()->json([
                 'success' => true,
                 'data' => $properties->map(function ($property) {
@@ -66,6 +65,7 @@ class PropertyController extends Controller
                         'features' => $property->features,
                         'description' => $property->description,
                         'images' => $property->images,
+                        'image_url' => $property->image_url,
                         'created_at' => $property->created_at,
                         'updated_at' => $property->updated_at
                     ];
@@ -117,14 +117,14 @@ class PropertyController extends Controller
     {
         try {
             $property = Property::find($id);
-            
+
             if (!$property) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Property not found'
                 ], 404);
             }
-            
+
             return response()->json([
                 'success' => true,
                 'data' => [
@@ -140,6 +140,7 @@ class PropertyController extends Controller
                     'features' => $property->features,
                     'description' => $property->description,
                     'images' => $property->images,
+                    'image_url' => $property->image_url,
                     'created_at' => $property->created_at,
                     'updated_at' => $property->updated_at
                 ]
@@ -157,14 +158,14 @@ class PropertyController extends Controller
     {
         try {
             $property = Property::find($id);
-            
+
             if (!$property) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Property not found'
                 ], 404);
             }
-            
+
             $validated = $request->validate([
                 'title' => 'required|string|max:191',
                 'price' => 'required|numeric',
@@ -199,14 +200,14 @@ class PropertyController extends Controller
     {
         try {
             $property = Property::find($id);
-            
+
             if (!$property) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Property not found'
                 ], 404);
             }
-            
+
             $property->delete();
 
             return response()->json([

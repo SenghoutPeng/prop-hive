@@ -20,11 +20,11 @@ class AuthController extends Controller
             ]);
 
             $user = User::where('user_email', $request->input('user_email'))->first();
-            
+
             if ($user && Hash::check($request->input('password'), $user->user_password)) {
                 // For API, we'll use Sanctum tokens instead of session
                 $token = $user->createToken('auth-token')->plainTextToken;
-                
+
                 return response()->json([
                     'success' => true,
                     'message' => 'Login successful',
@@ -61,7 +61,7 @@ class AuthController extends Controller
         try {
             // Revoke the token
             $request->user()->currentAccessToken()->delete();
-            
+
             return response()->json([
                 'success' => true,
                 'message' => 'Logged out successfully'
@@ -74,4 +74,4 @@ class AuthController extends Controller
             ], 500);
         }
     }
-} 
+}

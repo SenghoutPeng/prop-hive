@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('suppressGlobalErrors', '1')
 @section('content')
 <div class="page-container">
     <div class="page-header">
@@ -16,10 +17,10 @@
             <div class="form-group"><label>Property</label><select name="property_id">@foreach($properties as $property)<option value="{{ $property->id }}" @if($property->id == $utilityBill->property_id) selected @endif>{{ $property->title }}</option>@endforeach</select></div>
             <div class="form-group"><label>Utility Type</label><select name="utility_bill_type">@foreach($types as $type)<option value="{{ $type }}" @if($type == $utilityBill->utility_bill_type) selected @endif>{{ $type }}</option>@endforeach</select></div>
             <div class="form-group"><label>Status</label><select name="utility_bill_status">@foreach($statuses as $status)<option value="{{ $status }}" @if($status == $utilityBill->utility_bill_status) selected @endif>{{ $status }}</option>@endforeach</select></div>
-            <div class="form-group"><label>Amount</label><input type="text" name="utility_bill_amount" value="{{ $utilityBill->utility_bill_amount }}"></div>
-            <div class="form-group"><label>Usage</label><input type="text" name="utility_bill_usage" value="{{ $utilityBill->utility_bill_usage }}"></div>
-            <div class="form-group"><label>Invoice Date</label><input type="date" name="utility_bill_date" value="{{ $utilityBill->utility_bill_date }}"></div>
-            <div class="form-group"><label>Due Date</label><input type="date" name="utility_bill_due_date" value="{{ $utilityBill->utility_bill_due_date }}"></div>
+            <div class="form-group"><label>Amount</label><input type="number" step="0.01" min="0" name="utility_bill_amount" value="{{ old('utility_bill_amount', $utilityBill->utility_bill_amount) }}"></div>
+            <div class="form-group"><label>Usage</label><input type="number" step="0.01" min="0" name="utility_bill_usage" value="{{ old('utility_bill_usage', $utilityBill->utility_bill_usage) }}"></div>
+            <div class="form-group"><label>Invoice Date</label><input type="date" name="utility_bill_date" value="{{ old('utility_bill_date', optional($utilityBill->utility_bill_date)->format('Y-m-d')) }}"></div>
+            <div class="form-group"><label>Due Date</label><input type="date" name="utility_bill_due_date" value="{{ old('utility_bill_due_date', optional($utilityBill->utility_bill_due_date)->format('Y-m-d')) }}"></div>
             <div class="form-actions-center"><button type="submit" class="btn btn-save">Save Changes</button></div>
         </form>
     </div>

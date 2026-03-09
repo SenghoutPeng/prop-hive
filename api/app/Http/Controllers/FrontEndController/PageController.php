@@ -6,9 +6,38 @@ use Illuminate\Http\Request;
 use App\Models\FrontendModel\Property;
 use App\Models\FrontendModel\UtilityRequest;
 use App\Models\FrontendModel\Payment;
+use Illuminate\Support\Facades\Storage;
 
 class PageController extends \App\Http\Controllers\Controller
 {
+    private function imageDisk(): string
+    {
+        $disk = config('filesystems.default', 'public');
+
+        // In local dev, /storage URLs are served from the public disk target.
+        return $disk === 'local' ? 'public' : $disk;
+    }
+
+    private function normalizeStoredPath(?string $path): ?string
+    {
+        if (!$path) {
+            return null;
+        }
+
+        if (filter_var($path, FILTER_VALIDATE_URL)) {
+            $parsedPath = parse_url($path, PHP_URL_PATH);
+            $path = $parsedPath ?: $path;
+        }
+
+        $path = ltrim($path, '/');
+
+        if (str_starts_with($path, 'storage/')) {
+            $path = substr($path, strlen('storage/'));
+        }
+
+        return $path;
+    }
+
     public function home()
     {
         return response()->json([
@@ -49,7 +78,7 @@ class PageController extends \App\Http\Controllers\Controller
     {
         try {
             $properties = Property::active()->get();
-            
+
             return response()->json([
                 'success' => true,
                 'data' => $properties->map(function ($property) {
@@ -92,7 +121,7 @@ class PageController extends \App\Http\Controllers\Controller
     {
         try {
             $user = auth()->user();
-            
+
             if (!$user) {
                 return response()->json([
                     'success' => false,
@@ -107,7 +136,8 @@ class PageController extends \App\Http\Controllers\Controller
                     'name' => $user->user_name,
                     'email' => $user->user_email,
                     'phone' => $user->user_phone,
-                    'profile_picture' => $user->user_profile_picture,
+                    'profile_picture_path' => $user->user_profile_picture,
+                    'profile_picture' => $user->profile_picture_url,
                     'is_admin' => $user->is_admin,
                     'created_at' => $user->created_at,
                     'updated_at' => $user->updated_at
@@ -204,7 +234,7 @@ class PageController extends \App\Http\Controllers\Controller
                 'property_id' => 'nullable|integer|exists:properties,id',
                 'user_id' => 'nullable|integer|exists:user,user_id',
             ]);
-            
+
             if (empty($validated['user_id']) && !auth()->check()) {
                 return response()->json([
                     'success' => false,
@@ -366,8 +396,13 @@ class PageController extends \App\Http\Controllers\Controller
 
             if ($request->hasFile('avatar')) {
                 try {
-                    $avatarPath = $request->file('avatar')->store('avatars', 'public');
-                    $user->user_profile_picture = 'storage/avatars/' . basename($avatarPath);
+                    $oldPath = $this->normalizeStoredPath($user->user_profile_picture);
+                    if ($oldPath) {
+                        Storage::disk($this->imageDisk())->delete($oldPath);
+                    }
+
+                    $avatarPath = $request->file('avatar')->store('avatars', $this->imageDisk());
+                    $user->user_profile_picture = $avatarPath;
                 } catch (\Exception $e) {
                     return response()->json([
                         'success' => false,
@@ -382,7 +417,14 @@ class PageController extends \App\Http\Controllers\Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Profile updated successfully',
-                'data' => $user
+                'data' => [
+                    'id' => $user->user_id,
+                    'name' => $user->user_name,
+                    'email' => $user->user_email,
+                    'phone' => $user->user_phone,
+                    'profile_picture_path' => $user->user_profile_picture,
+                    'profile_picture' => $user->profile_picture_url,
+                ]
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -392,4 +434,4 @@ class PageController extends \App\Http\Controllers\Controller
             ], 500);
         }
     }
-} 
+}

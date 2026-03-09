@@ -24,6 +24,11 @@ class UtilityBill extends Model
         'utility_bill_status',
     ];
 
+    protected $casts = [
+        'utility_bill_date' => 'datetime',
+        'utility_bill_due_date' => 'datetime',
+    ];
+
 
     /**
      * Get the user that owns the utility bill.
@@ -31,5 +36,10 @@ class UtilityBill extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'user_id');
+    }
+
+    public function property()
+    {
+        return $this->belongsTo(Property::class, 'property_id', 'id');
     }
 }

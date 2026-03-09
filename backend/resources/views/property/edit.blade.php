@@ -25,7 +25,7 @@
                 @if($property->images)
                 <div class="form-group form-span-2">
                     <label>Current Image:</label><br>
-                    <img src="{{ asset('storage/' . $property->images) }}" alt="Property Image" style="max-width: 200px;">
+                    <img src="{{ $property->image_url }}" alt="Property Image" style="max-width: 200px;">
                 </div>
                 @else
                 <div class="form-group form-span-2">

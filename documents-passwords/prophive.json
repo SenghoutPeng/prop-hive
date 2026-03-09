@@ -1,0 +1,1344 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2025-07-10T08:30:00.000Z",
+  "__export_source": "insomnia.import:v5",
+  "resources": [
+    {
+      "_id": "wrk_e39730d9-6c5b-4d1e-8342-b7df09c38291",
+      "_type": "workspace",
+      "name": "My Collection",
+      "description": ""
+    },
+    {
+      "_id": "env_32d0b8af2aee84b7b8b52fa09589d8e21123d1a9",
+      "_type": "environment",
+      "name": "Base Environment",
+      "data": {
+        "baseUrl": "http://127.0.0.1:8092",
+        "token": "",
+        "adminToken": "",
+        "userToken": "",
+        "propertyToken": ""
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1742787366872,
+      "workspaceId": "wrk_e39730d9-6c5b-4d1e-8342-b7df09c38291"
+    },
+    {
+      "_id": "jar_32d0b8af2aee84b7b8b52fa09589d8e21123d1a9",
+      "_type": "cookie_jar",
+      "name": "Default Jar",
+      "cookies": [],
+      "workspaceId": "wrk_e39730d9-6c5b-4d1e-8342-b7df09c38291"
+    },
+    {
+      "_id": "fld_658d830a-2b01-4344-ac67-3d9851ad166d",
+      "_type": "request_group",
+      "name": "API-Auth",
+      "description": "",
+      "parentId": "wrk_e39730d9-6c5b-4d1e-8342-b7df09c38291",
+      "metaSortKey": -1751875934182,
+      "created": 1751875934182,
+      "modified": 1751875934182
+    },
+    {
+      "_id": "fld_c72550cf-5352-4c26-bda6-18d297889163",
+      "_type": "request_group",
+      "name": "Front",
+      "description": "",
+      "parentId": "fld_658d830a-2b01-4344-ac67-3d9851ad166d",
+      "metaSortKey": -1751875958863,
+      "created": 1751875958863,
+      "modified": 1752227776186
+    },
+    {
+      "_id": "req_03f12fb6-1d89-429a-b741-2aea7994cea4",
+      "_type": "request",
+      "name": "Login (Front)",
+      "parentId": "fld_c72550cf-5352-4c26-bda6-18d297889163",
+      "method": "POST",
+      "url": "{{ baseUrl }}/api/user/login",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"user_email\": \"ra@gmail.com\",\n  \"password\": \"123456\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1751880646593,
+      "created": 1751880646593,
+      "modified": 1752229603969,
+      "preRequestScript": "",
+      "afterResponseScript": "const regex = /\\|(.*)$/;\nconst authHeader = response.headers.find(h => h.name === 'Authorization');\n\nif (authHeader) {\n  const token = authHeader.value.replace('Bearer ', '');\n  insomnia.environment.set('userToken', token);\n  insomnia.environment.set('token', token);\n  console.log('Token stored successfully');\n} else if (response.body && response.body.token) {\n  insomnia.environment.set('userToken', response.body.token);\n  insomnia.environment.set('token', response.body.token);\n  console.log('Token stored successfully');\n}"
+    },
+    {
+      "_id": "req_569ccb25-a150-4945-8339-be883be74260",
+      "_type": "request",
+      "name": "register",
+      "parentId": "fld_c72550cf-5352-4c26-bda6-18d297889163",
+      "method": "POST",
+      "url": "{{ baseUrl }}/api/register",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Dara\",\n  \"email\": \"dara@gmail.com\",\n  \"password\": \"dara1234\",\n  \"password_confirmation\": \"dara1234\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1751878343763,
+      "created": 1751955609639,
+      "modified": 1752221690582,
+      "afterResponseScript": "if (response.body && response.body.token) {\n  insomnia.environment.set('userToken', response.body.token);\n  insomnia.environment.set('token', response.body.token);\n  console.log('Token stored successfully');\n}"
+    },
+    {
+      "_id": "req_51a64adf-b2a6-4dac-a93f-6a73faba5401",
+      "_type": "request",
+      "name": "display profile",
+      "parentId": "fld_c72550cf-5352-4c26-bda6-18d297889163",
+      "method": "GET",
+      "url": "{{ baseUrl }}/api/profile",
+      "body": {
+        "mimeType": "application/json",
+        "text": ""
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ userToken }}"
+      },
+      "metaSortKey": -1751879495178,
+      "created": 1751957804160,
+      "modified": 1752229631635
+    },
+    {
+      "_id": "req_4cb32031-ff72-4249-947e-254feaf15f55",
+      "_type": "request",
+      "name": "Logout (Front)",
+      "parentId": "fld_c72550cf-5352-4c26-bda6-18d297889163",
+      "method": "POST",
+      "url": "{{ baseUrl }}/api/user/logout",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ userToken }}"
+      },
+      "metaSortKey": -1752221858562,
+      "created": 1752221858562,
+      "modified": 1752229668052,
+      "afterResponseScript": "insomnia.environment.set('userToken', '');\ninsomnia.environment.set('token', '');\nconsole.log('Token cleared');"
+    },
+    {
+      "_id": "req_e2630431-e3e5-40a0-a561-eb9a8988fb90",
+      "_type": "request",
+      "name": "Contact",
+      "parentId": "fld_c72550cf-5352-4c26-bda6-18d297889163",
+      "method": "GET",
+      "url": "{{ baseUrl }}/api/contact",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"User Name\",\n  \"email\": \"user@example.com\",\n  \"message\": \"Your message here\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1752221924717,
+      "created": 1752221924717,
+      "modified": 1752221974899
+    },
+    {
+      "_id": "req_15eab4f2-ebbd-4c44-8561-25ead3d0ef96",
+      "_type": "request",
+      "name": "Support Ticket",
+      "parentId": "fld_c72550cf-5352-4c26-bda6-18d297889163",
+      "method": "POST",
+      "url": "{{ baseUrl }}/api/support-ticket",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Your Name\",\n  \"user_email\": \"your@email.com\",\n  \"subject\": \"Short summary of your issue\",\n  \"message\": \"Describe your problem or request here\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ userToken }}"
+      },
+      "metaSortKey": -1752222141129,
+      "created": 1752222141129,
+      "modified": 1752223912547
+    },
+    {
+      "_id": "req_99a9b5da-9bbc-42d5-8b6e-817aab13fbaf",
+      "_type": "request",
+      "name": "Home",
+      "parentId": "fld_c72550cf-5352-4c26-bda6-18d297889163",
+      "method": "GET",
+      "url": "{{ baseUrl }}/api/home",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1752227542125,
+      "created": 1752227542125,
+      "modified": 1752227568295
+    },
+    {
+      "_id": "req_5a0eba2a-8ba8-4432-bcad-5908d6048db0",
+      "_type": "request",
+      "name": "About",
+      "parentId": "fld_c72550cf-5352-4c26-bda6-18d297889163",
+      "method": "GET",
+      "url": "{{ baseUrl }}/api/about",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1752227678008,
+      "created": 1752227678008,
+      "modified": 1752227712908
+    },
+    {
+      "_id": "req_22aac603-707c-4730-85f2-f5d83f2760f7",
+      "_type": "request",
+      "name": "Listing",
+      "parentId": "fld_c72550cf-5352-4c26-bda6-18d297889163",
+      "method": "GET",
+      "url": "{{ baseUrl }}/api/listing",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1752227736151,
+      "created": 1752227736151,
+      "modified": 1752227749014
+    },
+    {
+      "_id": "req_9f1349fa-b43c-4ae0-afb8-5283d6ec3019",
+      "_type": "request",
+      "name": "Meet our team",
+      "parentId": "fld_c72550cf-5352-4c26-bda6-18d297889163",
+      "method": "GET",
+      "url": "{{ baseUrl }}/api/meet-our-team",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1752227779053,
+      "created": 1752227779053,
+      "modified": 1752227792228
+    },
+    {
+      "_id": "req_3508978b-b8ab-45e2-b355-354812ed988b",
+      "_type": "request",
+      "name": "Our client",
+      "parentId": "fld_c72550cf-5352-4c26-bda6-18d297889163",
+      "method": "GET",
+      "url": "{{ baseUrl }}/api/our-client",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1752227811933,
+      "created": 1752227811933,
+      "modified": 1752227831177
+    },
+    {
+      "_id": "req_7b3ca536-9151-47be-883a-2979db21e73f",
+      "_type": "request",
+      "name": "Edit tenant",
+      "parentId": "fld_c72550cf-5352-4c26-bda6-18d297889163",
+      "method": "GET",
+      "url": "{{ baseUrl }}/api/edit-tenant",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1752227845582,
+      "created": 1752227845582,
+      "modified": 1752227873935
+    },
+    {
+      "_id": "fld_c1306bae-c55b-4072-8775-f12e4d80367c",
+      "_type": "request_group",
+      "name": "Backend",
+      "description": "",
+      "parentId": "fld_658d830a-2b01-4344-ac67-3d9851ad166d",
+      "metaSortKey": -1751876022917,
+      "created": 1751876022917,
+      "modified": 1751876022917
+    },
+    {
+      "_id": "fld_b3110e5c-bd85-40b8-99d9-2805fdc7e6f7",
+      "_type": "request_group",
+      "name": "Utilities",
+      "description": "",
+      "parentId": "fld_c1306bae-c55b-4072-8775-f12e4d80367c",
+      "metaSortKey": -1752130817313,
+      "created": 1752130817313,
+      "modified": 1752130817313
+    },
+    {
+      "_id": "req_d1fbe0aa-a2d0-4ca6-bd6f-3839bb8822fa",
+      "_type": "request",
+      "name": "List all utility bills",
+      "parentId": "fld_b3110e5c-bd85-40b8-99d9-2805fdc7e6f7",
+      "method": "GET",
+      "url": "{{ baseUrl }}/api/utilities",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752130821504,
+      "created": 1752130821504,
+      "modified": 1752229788539
+    },
+    {
+      "_id": "req_75e6b6b7-a0cc-4b5b-974e-eab420395b64",
+      "_type": "request",
+      "name": "Create a utility bill",
+      "parentId": "fld_b3110e5c-bd85-40b8-99d9-2805fdc7e6f7",
+      "method": "POST",
+      "url": "{{ baseUrl }}/api/utilities",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"user_id\": 20,\n  \"property_id\": 10,\n  \"utility_bill_type\": \"Electricity\",\n  \"utility_bill_amount\": 2000.00,\n  \"utility_bill_usage\": 500,\n  \"utility_bill_date\": \"2025-07-11\",\n  \"utility_bill_due_date\": \"2025-07-25\",\n  \"utility_bill_status\": \"Pending\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752130863885,
+      "created": 1752130863885,
+      "modified": 1752229870341
+    },
+    {
+      "_id": "req_3d123f14-f60a-4ba0-a130-a5cd19e126bd",
+      "_type": "request",
+      "name": "Get a utility bill",
+      "parentId": "fld_b3110e5c-bd85-40b8-99d9-2805fdc7e6f7",
+      "method": "GET",
+      "url": "{{ baseUrl }}/api/utilities/7",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752130832099.25,
+      "created": 1752131036112,
+      "modified": 1752229837486
+    },
+    {
+      "_id": "req_05a2c002-77a6-4c3c-a58c-2b4b359f1d52",
+      "_type": "request",
+      "name": "Update a utility bill",
+      "parentId": "fld_b3110e5c-bd85-40b8-99d9-2805fdc7e6f7",
+      "method": "PUT",
+      "url": "{{ baseUrl }}/api/utilities/17",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n    \"user_id\": 20,\n    \"property_id\": 10,\n    \"utility_bill_type\": \"Electricity\",\n    \"utility_bill_amount\": 260.00,\n    \"utility_bill_usage\": 600,\n    \"utility_bill_date\": \"2024-02-01\",\n    \"utility_bill_due_date\": \"2024-02-15\",\n    \"utility_bill_status\": \"Paid\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752131064967,
+      "created": 1752131064967,
+      "modified": 1752229923397
+    },
+    {
+      "_id": "req_57c4137f-89f7-4212-8941-accd197d9bb5",
+      "_type": "request",
+      "name": "Delete a utility bill",
+      "parentId": "fld_b3110e5c-bd85-40b8-99d9-2805fdc7e6f7",
+      "method": "DELETE",
+      "url": "{{ baseUrl }}/api/utilities/17",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752131080217,
+      "created": 1752131080217,
+      "modified": 1752229931890
+    },
+    {
+      "_id": "fld_6fb94943-de2d-486c-9185-8e91d3d99f69",
+      "_type": "request_group",
+      "name": "Payments",
+      "description": "",
+      "parentId": "fld_c1306bae-c55b-4072-8775-f12e4d80367c",
+      "metaSortKey": -1752136372283,
+      "created": 1752136372283,
+      "modified": 1752136372283
+    },
+    {
+      "_id": "req_24189ad0-bda7-452b-828b-699929d23dae",
+      "_type": "request",
+      "name": "List all payments",
+      "parentId": "fld_6fb94943-de2d-486c-9185-8e91d3d99f69",
+      "method": "GET",
+      "url": "{{ baseUrl }}/api/payments",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752136381675,
+      "created": 1752136381675,
+      "modified": 1752210660277
+    },
+    {
+      "_id": "req_494edcc3-ba1d-41b4-a3fd-55ce2448b98c",
+      "_type": "request",
+      "name": "Create a new payment",
+      "parentId": "fld_6fb94943-de2d-486c-9185-8e91d3d99f69",
+      "method": "POST",
+      "url": "{{ baseUrl }}/api/payments",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"user_id\": 20,\n  \"id\": 8,\n  \"payment_amount\": 1200.00,\n  \"payment_type\": \"Cash\",\n  \"payment_date\": \"2025-07-11\",\n  \"payment_status\": \"Paid\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752136393337,
+      "created": 1752136393337,
+      "modified": 1752217664780
+    },
+    {
+      "_id": "req_37949b4d-74b4-4fdb-b117-1986c8dd695e",
+      "_type": "request",
+      "name": "Get a payment",
+      "parentId": "fld_6fb94943-de2d-486c-9185-8e91d3d99f69",
+      "method": "GET",
+      "url": "{{ baseUrl }}/api/payments/12",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752136387506,
+      "created": 1752136403455,
+      "modified": 1752217676698
+    },
+    {
+      "_id": "req_90848632-5068-401d-826f-a076fcbcf379",
+      "_type": "request",
+      "name": "Update a payment",
+      "parentId": "fld_6fb94943-de2d-486c-9185-8e91d3d99f69",
+      "method": "PUT",
+      "url": "{{ baseUrl }}/api/payments/15",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n    \"user_id\": 18,\n    \"id\": 4,\n    \"payment_amount\": 1200,\n    \"payment_date\": \"2025-07-11\",\n    \"payment_status\": \"Paid\",\n    \"payment_type\": \"Cash\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752136414345,
+      "created": 1752136414345,
+      "modified": 1752217656228
+    },
+    {
+      "_id": "req_cfbf0a09-9283-4d19-b45a-4462d2ad08c8",
+      "_type": "request",
+      "name": "Delete a payment",
+      "parentId": "fld_6fb94943-de2d-486c-9185-8e91d3d99f69",
+      "method": "DELETE",
+      "url": "{{ baseUrl }}/api/payments/15",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752136425839,
+      "created": 1752136425839,
+      "modified": 1752217694746
+    },
+    {
+      "_id": "fld_ec2a4d5f-7241-4cf0-92d6-bcb9129ef8fb",
+      "_type": "request_group",
+      "name": "Tenants",
+      "description": "",
+      "parentId": "fld_c1306bae-c55b-4072-8775-f12e4d80367c",
+      "metaSortKey": -1752136441607,
+      "created": 1752136441607,
+      "modified": 1752136441607
+    },
+    {
+      "_id": "req_ba27f83a-c62f-4e25-b915-f60f417a1e43",
+      "_type": "request",
+      "name": "List all tenants",
+      "parentId": "fld_ec2a4d5f-7241-4cf0-92d6-bcb9129ef8fb",
+      "method": "GET",
+      "url": "{{ baseUrl }}/api/tenants",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752136445009,
+      "created": 1752136445009,
+      "modified": 1752230063180
+    },
+    {
+      "_id": "req_25b7846a-3333-46a6-be98-3dc1f3fac2da",
+      "_type": "request",
+      "name": "Create a new tenant",
+      "parentId": "fld_ec2a4d5f-7241-4cf0-92d6-bcb9129ef8fb",
+      "method": "POST",
+      "url": "{{ baseUrl }}/api/tenants",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n    \"user_name\": \"Nisa\",\n    \"user_email\": \"sani@gmail.com\",\n    \"user_phone\": \"48357966\",\n    \"property_id\": 4,\n    \"user_password\": \"securepassword123\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752136475266,
+      "created": 1752136475266,
+      "modified": 1752217854191
+    },
+    {
+      "_id": "req_4c0a347b-7ed4-4e70-b1ef-b6c52345ff1d",
+      "_type": "request",
+      "name": "Get a tenant",
+      "parentId": "fld_ec2a4d5f-7241-4cf0-92d6-bcb9129ef8fb",
+      "method": "GET",
+      "url": "{{ baseUrl }}/api/tenants/4",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ userToken }}"
+      },
+      "metaSortKey": -1752136460137.5,
+      "created": 1752136506843,
+      "modified": 1752416013692
+    },
+    {
+      "_id": "req_d7c8eaea-9251-4189-bc2b-384e031d9c0b",
+      "_type": "request",
+      "name": "Update a tenant",
+      "parentId": "fld_ec2a4d5f-7241-4cf0-92d6-bcb9129ef8fb",
+      "method": "PUT",
+      "url": "{{ baseUrl }}/api/tenants/20",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n    \"user_name\": \"Nisa\",\n    \"user_email\": \"sani.updated@gmail.com\",\n    \"user_phone\": \"9876543210\",\n    \"property_id\": 9,\n    \"user_password\": \"newsecurepassword123\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752136512489,
+      "created": 1752136512489,
+      "modified": 1752230008692
+    },
+    {
+      "_id": "req_5c1e9e35-5737-4ccc-a328-afe529d1192f",
+      "_type": "request",
+      "name": "Delete a tenant",
+      "parentId": "fld_ec2a4d5f-7241-4cf0-92d6-bcb9129ef8fb",
+      "method": "DELETE",
+      "url": "{{ baseUrl }}/api/tenants/8",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752136525875,
+      "created": 1752136525875,
+      "modified": 1752230031116
+    },
+    {
+      "_id": "fld_9c9296ab-a7e8-4524-a890-733186a9376c",
+      "_type": "request_group",
+      "name": "Properties",
+      "description": "",
+      "parentId": "fld_c1306bae-c55b-4072-8775-f12e4d80367c",
+      "metaSortKey": -1752136553654,
+      "created": 1752136553653,
+      "modified": 1752136553653
+    },
+    {
+      "_id": "req_343f5715-9f53-4342-a71b-f60d1bac70ee",
+      "_type": "request",
+      "name": "List all properties",
+      "parentId": "fld_9c9296ab-a7e8-4524-a890-733186a9376c",
+      "method": "GET",
+      "url": "{{ baseUrl }}/api/properties",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752136593564,
+      "created": 1752136593564,
+      "modified": 1752416218361
+    },
+    {
+      "_id": "req_e5f47898-6608-4e34-858d-6ab534d776e9",
+      "_type": "request",
+      "name": "Create a new property",
+      "parentId": "fld_9c9296ab-a7e8-4524-a890-733186a9376c",
+      "method": "POST",
+      "url": "{{ baseUrl }}/api/properties",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"title\": \"Luxury Villa\",\n  \"price\": 250000,\n  \"type\": \"villa\",\n  \"status\": \"available\",\n  \"bedrooms\": 5,\n  \"bathrooms\": 4,\n  \"square_feet\": 4500,\n  \"address\": \"123 Luxury Lane\",\n  \"features\": \"Pool, Garden, Security System\",\n  \"description\": \"Beautiful luxury villa with modern amenities\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752136603497,
+      "created": 1752136603497,
+      "modified": 1752210794920
+    },
+    {
+      "_id": "req_eb4662e1-dfb7-4853-abf6-7a3b37453310",
+      "_type": "request",
+      "name": "Get a property",
+      "parentId": "fld_9c9296ab-a7e8-4524-a890-733186a9376c",
+      "method": "GET",
+      "url": "{{ baseUrl }}/api/properties/9",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752136598530.5,
+      "created": 1752136623673,
+      "modified": 1752211899907
+    },
+    {
+      "_id": "req_69366cc9-db26-407b-af27-d22d6726b921",
+      "_type": "request",
+      "name": "Update a property",
+      "parentId": "fld_9c9296ab-a7e8-4524-a890-733186a9376c",
+      "method": "PUT",
+      "url": "{{ baseUrl }}/api/properties/14",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"title\": \"Villa\",\n  \"price\": 220000,\n  \"type\": \"villa\",\n  \"status\": \"available\",\n  \"bedrooms\": 5,\n  \"bathrooms\": 4,\n  \"square_feet\": 4500,\n  \"address\": \"123 Luxury Lane\",\n  \"features\": \"Pool, Garden, Security System\",\n  \"description\": \"Beautiful luxury villa with modern amenities\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752136650659,
+      "created": 1752136650659,
+      "modified": 1752218126790
+    },
+    {
+      "_id": "req_effbcdeb-5585-4927-96ed-352c6e3d479d",
+      "_type": "request",
+      "name": "Delete a property",
+      "parentId": "fld_9c9296ab-a7e8-4524-a890-733186a9376c",
+      "method": "DELETE",
+      "url": "{{ baseUrl }}/api/properties/9",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752136664044,
+      "created": 1752136664044,
+      "modified": 1752230224863
+    },
+    {
+      "_id": "fld_265500f8-fe7a-4b0f-9343-d98720ccbcba",
+      "_type": "request_group",
+      "name": "Dashboard",
+      "description": "",
+      "parentId": "fld_c1306bae-c55b-4072-8775-f12e4d80367c",
+      "metaSortKey": -1752129119924.5,
+      "created": 1752136768805,
+      "modified": 1752136797220
+    },
+    {
+      "_id": "req_29e65fd6-dd6d-4208-bcd5-874bfc2ad4e4",
+      "_type": "request",
+      "name": "Dashboard",
+      "parentId": "fld_265500f8-fe7a-4b0f-9343-d98720ccbcba",
+      "method": "GET",
+      "url": "{{ baseUrl }}/api/dashboard",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752136790088,
+      "created": 1752129076510,
+      "modified": 1752229746822
+    },
+    {
+      "_id": "fld_b3797ef8-e2ef-49ac-9e29-19ebe36d195d",
+      "_type": "request_group",
+      "name": "Auth",
+      "description": "",
+      "parentId": "fld_c1306bae-c55b-4072-8775-f12e4d80367c",
+      "metaSortKey": -1752207056786,
+      "created": 1752207056786,
+      "modified": 1752207056786
+    },
+    {
+      "_id": "req_5a7b8f54-20ce-4ba3-93bb-2a0c67ba0e4c",
+      "_type": "request",
+      "name": "Login (Admin)",
+      "parentId": "fld_b3797ef8-e2ef-49ac-9e29-19ebe36d195d",
+      "method": "POST",
+      "url": "{{ baseUrl }}/api/admin/login",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"user_email\": \"admin@gmail.com\",\n  \"password\": \"admin123\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1752207059427,
+      "created": 1752207059427,
+      "modified": 1752207849377,
+      "afterResponseScript": "const regex = /\\|(.*)$/;\nconst authHeader = response.headers.find(h => h.name === 'Authorization');\n\nif (authHeader) {\n  const token = authHeader.value.replace('Bearer ', '');\n  insomnia.environment.set('adminToken', token);\n  insomnia.environment.set('token', token);\n  console.log('Admin token stored successfully');\n} else if (response.body && response.body.token) {\n  insomnia.environment.set('adminToken', response.body.token);\n  insomnia.environment.set('token', response.body.token);\n  console.log('Admin token stored successfully');\n}"
+    },
+    {
+      "_id": "req_dc71caeb-d28c-4aa5-b2f9-901ebb082368",
+      "_type": "request",
+      "name": "Logout (Admin)",
+      "parentId": "fld_b3797ef8-e2ef-49ac-9e29-19ebe36d195d",
+      "method": "POST",
+      "url": "{{ baseUrl }}/api/admin/logout",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752207065917,
+      "created": 1752207065917,
+      "modified": 1752416808616,
+      "afterResponseScript": "insomnia.environment.set('adminToken', '');\ninsomnia.environment.set('token', '');\nconsole.log('Admin token cleared');"
+    },
+    {
+      "_id": "fld_6ad26ddd-5089-48ff-b568-776f11140e2c",
+      "_type": "request_group",
+      "name": "Support Ticket",
+      "description": "",
+      "parentId": "fld_c1306bae-c55b-4072-8775-f12e4d80367c",
+      "metaSortKey": -1752209352058,
+      "created": 1752209352058,
+      "modified": 1752209352058
+    },
+    {
+      "_id": "req_7d56a0e6-e03a-4015-804d-0db711357757",
+      "_type": "request",
+      "name": "List all tickets",
+      "parentId": "fld_6ad26ddd-5089-48ff-b568-776f11140e2c",
+      "method": "GET",
+      "url": "{{ baseUrl }}/api/tickets",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752209355041,
+      "created": 1752209355041,
+      "modified": 1752416818311
+    },
+    {
+      "_id": "req_2d9ad35e-3aa4-44aa-9ae6-9dcee8143c78",
+      "_type": "request",
+      "name": "Get single ticket",
+      "parentId": "fld_6ad26ddd-5089-48ff-b568-776f11140e2c",
+      "method": "GET",
+      "url": "{{ baseUrl }}/api/tickets/5",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752209391342,
+      "created": 1752209391342,
+      "modified": 1752211623122
+    },
+    {
+      "_id": "req_ec0757cc-ce8f-4474-8405-60dfb91f4622",
+      "_type": "request",
+      "name": "Update ticket",
+      "parentId": "fld_6ad26ddd-5089-48ff-b568-776f11140e2c",
+      "method": "PUT",
+      "url": "{{ baseUrl }}/api/tickets/2",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"support_ticket_status\": \"Closed\",\n  \"support_ticket_message\": \"Updated\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752209437147,
+      "created": 1752209437147,
+      "modified": 1752219024810
+    },
+    {
+      "_id": "req_a4501711-4d55-47c0-88ab-c3e077d739ac",
+      "_type": "request",
+      "name": "Delete ticket",
+      "parentId": "fld_6ad26ddd-5089-48ff-b568-776f11140e2c",
+      "method": "DELETE",
+      "url": "{{ baseUrl }}/api/tickets/2",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752209441400,
+      "created": 1752209441400,
+      "modified": 1752219284854
+    },
+    {
+      "_id": "fld_170c8239-3c8a-4bac-a90f-d8ee8c2c6a6b",
+      "_type": "request_group",
+      "name": "Contacts",
+      "description": "",
+      "parentId": "fld_c1306bae-c55b-4072-8775-f12e4d80367c",
+      "metaSortKey": -1752209500239,
+      "created": 1752209500239,
+      "modified": 1752209500239
+    },
+    {
+      "_id": "req_0a3d2045-d452-4ea3-9554-bc25d3b80140",
+      "_type": "request",
+      "name": "List all contacts",
+      "parentId": "fld_170c8239-3c8a-4bac-a90f-d8ee8c2c6a6b",
+      "method": "GET",
+      "url": "{{ baseUrl }}/api/contacts",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752209502092,
+      "created": 1752209502092,
+      "modified": 1752415963732
+    },
+    {
+      "_id": "req_c4f810ff-a308-4250-843d-37713b5a886b",
+      "_type": "request",
+      "name": "Get single contact",
+      "parentId": "fld_170c8239-3c8a-4bac-a90f-d8ee8c2c6a6b",
+      "method": "GET",
+      "url": "{{ baseUrl }}/api/contacts/1",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752209517398,
+      "created": 1752209517398,
+      "modified": 1752211404061
+    },
+    {
+      "_id": "req_3efaa0e0-7bff-471b-b40f-b4752063311c",
+      "_type": "request",
+      "name": "Update contact",
+      "parentId": "fld_170c8239-3c8a-4bac-a90f-d8ee8c2c6a6b",
+      "method": "PUT",
+      "url": "{{ baseUrl }}/api/contacts/1",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"status\": \"Open\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752209526306,
+      "created": 1752209526306,
+      "modified": 1752219546698
+    },
+    {
+      "_id": "req_1ba5ad54-255d-4c51-bd93-55c5eb21ace6",
+      "_type": "request",
+      "name": "Delete contact",
+      "parentId": "fld_170c8239-3c8a-4bac-a90f-d8ee8c2c6a6b",
+      "method": "DELETE",
+      "url": "{{ baseUrl }}/api/contacts/1",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752209534002,
+      "created": 1752209534002,
+      "modified": 1752210902988
+    },
+    {
+      "_id": "fld_871a37fc-00cd-484e-abc9-abe71c58e6cb",
+      "_type": "request_group",
+      "name": "Utility Request",
+      "description": "",
+      "parentId": "fld_c1306bae-c55b-4072-8775-f12e4d80367c",
+      "metaSortKey": -1752209717502,
+      "created": 1752209717502,
+      "modified": 1752209717502
+    },
+    {
+      "_id": "req_fe518ffd-922d-4545-987c-3d51c68719ae",
+      "_type": "request",
+      "name": "List all utility requests",
+      "parentId": "fld_871a37fc-00cd-484e-abc9-abe71c58e6cb",
+      "method": "GET",
+      "url": "{{ baseUrl }}/api/utility-requests",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752209724450,
+      "created": 1752209724450,
+      "modified": 1752415933976
+    },
+    {
+      "_id": "req_cfdfd0d9-067c-4c5f-822f-388417f2eb5e",
+      "_type": "request",
+      "name": "Get single utility request",
+      "parentId": "fld_871a37fc-00cd-484e-abc9-abe71c58e6cb",
+      "method": "GET",
+      "url": "{{ baseUrl }}/api/utility-requests/11",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752209732105,
+      "created": 1752209732105,
+      "modified": 1752219590735
+    },
+    {
+      "_id": "req_0964f97c-54ec-41ee-9536-db6f0d0d300e",
+      "_type": "request",
+      "name": "Update utility request",
+      "parentId": "fld_871a37fc-00cd-484e-abc9-abe71c58e6cb",
+      "method": "PUT",
+      "url": "{{ baseUrl }}/api/utility-requests/11",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n    \"user_id\": 18,\n    \"id\": 4,\n    \"utility_request_description\": \"Please fix the water leak in the kitchen.\",\n    \"utility_request_status\": \"in Progress\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752209739389,
+      "created": 1752209739389,
+      "modified": 1752220502558
+    },
+    {
+      "_id": "req_ccc1f3e2-5825-474c-ab58-fb53a42d6ff8",
+      "_type": "request",
+      "name": "Delete utility request",
+      "parentId": "fld_871a37fc-00cd-484e-abc9-abe71c58e6cb",
+      "method": "DELETE",
+      "url": "{{ baseUrl }}/api/utility-requests/11",
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/11.3.0"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ adminToken }}"
+      },
+      "metaSortKey": -1752209746362,
+      "created": 1752209746362,
+      "modified": 1752220736503
+    }
+  ]
+}

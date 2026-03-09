@@ -4,20 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'PropHive - Real Estate Platform')</title>
-    
+
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/components.css') }}">
-    
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
+
     <!-- Page-specific styles -->
     @stack('styles')
 </head>
 <body>
     <!-- Header -->
-    <header class="header">
+    <header class="header bg-black">
         <div class="container">
             <div class="logo-container">
                 <img src="{{ asset('image/photo_6141044952965170157_y.jpg') }}" alt="PropHive Logo" class="logo">
@@ -39,9 +40,9 @@
                 @endguest
                 @auth
                     <a href="/profile" class="profile-icon">
-                        @php $profilePic = auth()->user()->user_profile_picture ?? null; @endphp
+                        @php $profilePic = auth()->user()->profile_picture_url ?? null; @endphp
                         @if($profilePic)
-                            <img src="/{{ $profilePic }}" alt="Profile">
+                            <img src="{{ $profilePic }}" alt="Profile">
                         @else
                             <img src="{{ asset('image/teto.jpg') }}" alt="Profile">
                         @endif
@@ -58,13 +59,13 @@
                 {{ session('success') }}
             </div>
         @endif
-        
+
         @if(session('error'))
             <div class="alert alert-error" style="background: #f8d7da; color: #721c24; padding: 1rem; margin: 1rem; border-radius: 5px; border: 1px solid #f5c6cb;">
                 {{ session('error') }}
             </div>
         @endif
-        
+
         @yield('content')
     </main>
 
@@ -91,4 +92,4 @@
     <script src="{{ asset('js/app.js') }}"></script>
     @stack('scripts')
 </body>
-</html> 
+</html>

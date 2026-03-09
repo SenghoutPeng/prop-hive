@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\FrontEndController;
 
 use Illuminate\Http\Request;
 use App\Models\FrontendModel\SupportTicket;
@@ -14,7 +14,7 @@ class SupportTicketController extends Controller
             $tickets = SupportTicket::where('user_id', Auth::check() ? Auth::user()->user_id : null)
                 ->orderBy('support_ticket_created_at', 'desc')
                 ->get();
-            
+
             return response()->json([
                 'success' => true,
                 'data' => $tickets->map(function ($ticket) {
@@ -69,7 +69,7 @@ class SupportTicketController extends Controller
                 'support_ticket_status' => 'pending',
                 'support_ticket_created_at' => now(),
             ];
-            
+
             \Log::info('Support ticket data', $ticketData);
             $ticket = SupportTicket::create($ticketData);
 
@@ -97,7 +97,7 @@ class SupportTicketController extends Controller
             $ticket = SupportTicket::where('support_ticket_id', $id)
                 ->where('user_id', Auth::id())
                 ->firstOrFail();
-            
+
             return response()->json([
                 'success' => true,
                 'data' => [
@@ -123,7 +123,7 @@ class SupportTicketController extends Controller
     {
         try {
             $tickets = SupportTicket::orderBy('support_ticket_created_at', 'desc')->get();
-            
+
             return response()->json([
                 'success' => true,
                 'data' => $tickets->map(function ($ticket) {
@@ -152,7 +152,7 @@ class SupportTicketController extends Controller
     {
         try {
             $ticket = SupportTicket::findOrFail($id);
-            
+
             return response()->json([
                 'success' => true,
                 'data' => [
@@ -185,11 +185,11 @@ class SupportTicketController extends Controller
 
             $ticket = SupportTicket::findOrFail($id);
             $ticket->support_ticket_status = $request->status;
-            
+
             if ($request->response) {
                 $ticket->support_ticket_message .= "\n\n--- Admin Response ---\n" . $request->response;
             }
-            
+
             $ticket->support_ticket_updated_at = now();
             $ticket->save();
 

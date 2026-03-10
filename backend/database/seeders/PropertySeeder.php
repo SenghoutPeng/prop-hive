@@ -103,7 +103,7 @@ class PropertySeeder extends Seeder
                 'description' => 'Modern condo with city views',
                 'property_status' => 'available',
                 'property_type_id' => 1,
-                'admin_id' => 1,
+                'user_id' => 3,
             ],
             [
                 'property_size' => 2500,
@@ -113,7 +113,7 @@ class PropertySeeder extends Seeder
                 'description' => 'Spacious villa with garden',
                 'property_status' => 'available',
                 'property_type_id' => 1,
-                'admin_id' => 1,
+                'user_id' => 3,
             ],
             [
                 'property_size' => 3000,
@@ -123,7 +123,7 @@ class PropertySeeder extends Seeder
                 'description' => 'Commercial office space',
                 'property_status' => 'sold',
                 'property_type_id' => 2,
-                'admin_id' => 2,
+                'user_id' => 3,
             ],
         ]);
     }

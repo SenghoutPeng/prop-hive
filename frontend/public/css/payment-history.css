@@ -1,75 +1,82 @@
-/* Styles specific to the "Payment History" page */
+/* Payment history styles */
 
 .payment-history-page {
-    background-color: #fdfaf5;
-    padding: 60px 0;
+    padding: 46px 0 64px;
+    background: var(--bg);
 }
 
-/* Payment History Hero */
 .payment-hero {
-    border: 3px dotted #a0c4ff; /* Light blue dotted border */
-    border-radius: 10px;
-    padding: 40px;
     text-align: center;
-    margin-bottom: 40px;
+    background: linear-gradient(160deg, #fff7df 0%, #fdfaf5 65%);
+    border: 1px solid #f0dfaa;
+    border-radius: var(--radius-md);
+    padding: 34px 20px;
+    margin-bottom: 24px;
 }
 
 .payment-hero h2 {
-    font-size: 2.5em;
-    margin: 0 0 10px 0;
+    margin: 0 0 8px;
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    color: var(--text);
 }
 
 .payment-hero p {
-    font-size: 1.1em;
-    color: #666;
     margin: 0;
+    color: var(--text-muted);
 }
 
-/* Section Divider */
 .section-divider {
-    height: 10px;
-    background-color: #007bff; /* Blue color from the image */
-    margin: 40px 0;
+    height: 1px;
+    background: var(--border);
+    margin: 22px 0 28px;
 }
 
-/* Payments Section */
 .payments-section {
-    display: flex;
-    gap: 60px;
-    align-items: flex-start;
-    padding: 40px 0;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 24px;
+    align-items: start;
 }
 
 .payments-title-column {
-    flex: 0 0 30%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: 20px;
 }
 
 .payments-title-column h3 {
-    font-size: 2em;
-    margin: 0 0 10px 0;
+    margin: 0 0 8px;
+    font-size: 1.35rem;
 }
 
 .payments-title-column p {
-    color: #666;
-    line-height: 1.6;
+    margin: 0;
+    color: var(--text-muted);
 }
 
 .transaction-list-column {
-    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
 }
 
 .transaction-list {
     list-style: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
 }
 
 .transaction-item {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 16px;
     align-items: center;
-    padding: 20px 0;
-    border-bottom: 1px solid #e0e0e0;
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--border);
 }
 
 .transaction-item:last-child {
@@ -79,46 +86,79 @@
 .transaction-main {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 12px;
+    min-width: 0;
 }
 
 .transaction-icon {
-    width: 45px;
-    height: 45px;
-    padding: 5px;
-    background-color: #f0f0f0;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
+    background: #fff8e1;
+    border: 1px solid #f4e2a4;
+    padding: 7px;
+    flex-shrink: 0;
 }
 
 .transaction-details h4 {
-    margin: 0 0 5px 0;
-    font-size: 1.1em;
+    margin: 0 0 2px;
+    color: var(--text);
+    font-size: 1rem;
 }
 
 .transaction-details p {
     margin: 0;
-    font-size: 0.9em;
+    font-size: 0.9rem;
+    font-weight: 600;
 }
 
 .transaction-amount p {
     margin: 0;
-    font-size: 1.1em;
-    font-weight: bold;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
 }
 
-/* Status-specific styles */
+.transaction-date small {
+    color: var(--text-muted);
+    font-size: 0.86rem;
+    white-space: nowrap;
+}
+
 .status-completed {
-    color: #2e7d32; /* Green */
+    color: #166534;
 }
 
 .status-pending {
-    color: #f57c00; /* Orange */
+    color: #b45309;
 }
 
 .status-failed {
-    color: #d32f2f; /* Red */
+    color: #b91c1c;
 }
 
 .transaction-amount.refund p {
-    color: #2e7d32; /* Green for refunds */
+    color: #0f766e;
+}
+
+@media (max-width: 900px) {
+    .payments-section {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 680px) {
+    .payment-history-page {
+        padding: 28px 0 42px;
+    }
+
+    .transaction-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        align-items: start;
+    }
+
+    .transaction-date small {
+        white-space: normal;
+    }
 }

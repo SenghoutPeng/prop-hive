@@ -17,10 +17,10 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('property_status')->nullable();
             $table->unsignedBigInteger('property_type_id')->nullable();
-            $table->unsignedBigInteger('admin_id')->nullable();
-            
+            $table->unsignedBigInteger('user_id')->nullable();
+
             $table->foreign('property_type_id')->references('property_type_id')->on('property_type');
-            $table->foreign('admin_id')->references('admin_id')->on('admin');
+            $table->foreign('user_id')->references('user_id')->on('user');
         });
     }
 

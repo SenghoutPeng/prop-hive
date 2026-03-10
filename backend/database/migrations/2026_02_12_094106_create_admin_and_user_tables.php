@@ -8,13 +8,13 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('admin', function (Blueprint $table) {
-            $table->id('admin_id');
-            $table->string('admin_name')->nullable();
-            $table->string('admin_password')->nullable();
-            $table->string('admin_email')->nullable();
-            $table->string('admin_phone')->nullable();
-        });
+        // Schema::create('admin', function (Blueprint $table) {
+        //     $table->id('admin_id');
+        //     $table->string('admin_name')->nullable();
+        //     $table->string('admin_password')->nullable();
+        //     $table->string('admin_email')->nullable();
+        //     $table->string('admin_phone')->nullable();
+        // });
 
         Schema::create('user', function (Blueprint $table) {
             $table->id('user_id');
@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('user_phone')->nullable();
             $table->string('user_profile_picture')->nullable();
             $table->boolean('is_admin')->default(false);
+             $table->rememberToken();
+                $table->timestamps();
         });
     }
 

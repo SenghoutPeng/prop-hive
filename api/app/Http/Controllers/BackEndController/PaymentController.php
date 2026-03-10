@@ -4,22 +4,17 @@ namespace App\Http\Controllers\BackEndController;
 
 use Illuminate\Http\Request;
 use App\Models\BackendModel\Payment;
-use App\Models\BackendModel\User;
-use App\Models\BackendModel\Property;
 use App\Models\BackendModel\Activity;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 
 class PaymentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         try {
             $payments = Payment::with(['user', 'property'])->orderBy('payment_date', 'desc')->get();
-            
+
             return response()->json([
                 'success' => true,
                 'data' => $payments->map(function ($payment) {
@@ -48,9 +43,7 @@ class PaymentController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         try {
@@ -65,7 +58,7 @@ class PaymentController extends Controller
 
             $payment = Payment::create($validatedData);
 
-            // Log activity
+
             $activityUserId = Auth::check() ? Auth::user()->user_id : null;
             Activity::create([
                 'user_id' => $activityUserId,
@@ -90,21 +83,19 @@ class PaymentController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show($id)
     {
         try {
             $payment = Payment::with(['user', 'property'])->find($id);
-            
+
             if (!$payment) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Payment not found'
                 ], 404);
             }
-            
+
             return response()->json([
                 'success' => true,
                 'data' => [
@@ -131,21 +122,19 @@ class PaymentController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, $id)
     {
         try {
             $payment = Payment::find($id);
-            
+
             if (!$payment) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Payment not found'
                 ], 404);
             }
-            
+
             $validatedData = $request->validate([
                 'user_id' => 'required|exists:user,user_id',
                 'id' => 'required|exists:properties,id',
@@ -182,21 +171,19 @@ class PaymentController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    
     public function destroy($id)
     {
         try {
             $payment = Payment::find($id);
-            
+
             if (!$payment) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Payment not found'
                 ], 404);
             }
-            
+
             $payment->delete();
 
             return response()->json([

@@ -9,11 +9,8 @@
 
 @section('content')
     <section class="profile-hero">
-        <div class="container">
-            <h1>My Profile</h1>
-            <p>Manage your account settings and preferences</p>
-        </div>
-    </section>
+
+
 
     <section class="profile-content">
         <div class="container">
@@ -60,7 +57,7 @@
                 </div>
 
                 <!-- Account Statistics -->
-                <div class="profile-section animate-on-scroll">
+                {{-- <div class="profile-section animate-on-scroll">
                     <h2>Account Statistics</h2>
                     <div class="stats-grid">
                         <div class="stat-card">
@@ -121,7 +118,7 @@
                         </button>
                     </form>
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- Preferences -->
                 <div class="profile-section animate-on-scroll">
@@ -213,6 +210,7 @@
             </div>
         </div>
     </section>
+      </section>
 @endsection
 
 @push('scripts')

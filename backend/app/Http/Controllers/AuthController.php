@@ -25,12 +25,18 @@ class AuthController extends Controller
 
         $user = User::where('user_email', $request->input('email'))->first();
 
+        if ($user && !((bool) $user->is_admin)) {
+            return back()->withErrors([
+                'email' => 'Access denied. Admin accounts only.',
+            ])->withInput($request->only('email'));
+        }
+
         if ($user && Hash::check($request->input('password'), $user->user_password)) {
             Auth::login($user);
             $request->session()->regenerate();
             return redirect()->intended('/dashboard');
         }
-        
+
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ])->withInput($request->only('email', 'remember'));

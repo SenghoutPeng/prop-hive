@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\BackEndController;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\BackendModel\User;
 use App\Http\Controllers\Controller;
@@ -22,7 +21,7 @@ class AuthController extends Controller
             $user = User::where('user_email', $request->input('user_email'))->first();
 
             if ($user && Hash::check($request->input('password'), $user->user_password)) {
-                // For API, we'll use Sanctum tokens instead of session
+
                 $token = $user->createToken('auth-token')->plainTextToken;
 
                 return response()->json([

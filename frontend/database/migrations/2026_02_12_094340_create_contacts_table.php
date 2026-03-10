@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('subject', 191);
             $table->text('message');
             $table->string('status', 191)->default('pending');
-            $table->foreignId('assigned_to')->nullable()->constrained('user','user_id')->onDelete('set null');
+            $table->foreignId('assigned_to')->nullable()->foreign('user_id')->on('user')->onDelete('set null');
             $table->timestamp('read_at')->nullable();
             $table->timestamp('replied_at')->nullable();
             $table->timestamps();

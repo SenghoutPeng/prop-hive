@@ -22,12 +22,12 @@ return new class extends Migration
             $table->string('features')->nullable();
             $table->string('images')->nullable();
             $table->bigInteger('owner_id')->nullable();
-            $table->foreignId('agent_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('agent_id')->nullable()->foreign('user_id')->on('user')->onDelete('set null');
             $table->boolean('is_featured')->default(false);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->unsignedBigInteger('tenant_id')->nullable();
-            
+
             $table->index('status');
             $table->index('type');
             $table->index('price');

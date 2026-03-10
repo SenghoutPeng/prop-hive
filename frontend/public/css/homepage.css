@@ -1,9 +1,7 @@
-/* General Body Styles */
+/* Homepage builds on the shared theme in style.css */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background-color: #fdfaf5;
-    color: #333;
+    background-color: var(--bg);
+    color: var(--text);
 }
 
 .container {
@@ -19,7 +17,7 @@ body {
 .btn {
     padding: 12px 28px;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: var(--radius-sm);
     font-weight: bold;
     display: inline-block;
     margin-top: 20px;
@@ -40,7 +38,7 @@ body {
 .section-subtitle {
     text-align: center;
     margin-bottom: 40px;
-    color: #666;
+    color: var(--text-muted);
 }
 
 /* Header Section */
@@ -103,7 +101,7 @@ body {
 
 /* Hero Section */
 .hero {
-    background-color: #fdfaf5;
+    background: linear-gradient(160deg, #fff7df 0%, #fdfaf5 65%);
     padding: 100px 0;
 }
 
@@ -114,7 +112,7 @@ body {
 
 .hero p {
     font-size: 1.2em;
-    color: #555;
+    color: var(--text-muted);
 }
 
 /* Services Section */

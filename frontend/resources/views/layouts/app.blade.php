@@ -18,7 +18,7 @@
 </head>
 <body>
     <!-- Header -->
-    <header class="header bg-black">
+    <header class="header bg-yellow-600">
         <div class="container">
             <div class="logo-container">
                 <img src="{{ asset('image/photo_6141044952965170157_y.jpg') }}" alt="PropHive Logo" class="logo">

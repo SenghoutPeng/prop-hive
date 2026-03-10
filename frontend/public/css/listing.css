@@ -1,21 +1,24 @@
 /* Styles specific to the "Listings" page */
 
 /* Listings Hero Section */
-.listings-hero {
-    background-color: #fdfaf5;
-    padding: 60px 0;
+.listings-hero,
+.listing-hero {
+    background: linear-gradient(160deg, #fff7df 0%, #fdfaf5 65%);
+    padding: 56px 0 46px;
     text-align: center;
 }
 
-.listings-hero h2 {
-    font-size: 3em;
-    color: #333;
-    margin-bottom: 15px;
+.listings-hero h2,
+.listing-hero h1 {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    color: var(--text);
+    margin-bottom: 10px;
 }
 
-.listings-hero p {
-    font-size: 1.2em;
-    color: #666;
+.listings-hero p,
+.listing-hero p {
+    font-size: 1.08rem;
+    color: var(--text-muted);
     max-width: 700px;
     margin: 0 auto;
 }
@@ -23,7 +26,7 @@
 /* Property Grid Section */
 .property-grid-section {
     padding: 20px 0 80px 0; /* Less padding top, more bottom */
-    background-color: #fdfaf5;
+    background-color: var(--bg);
 }
 
 .property-grid-wrapper {
@@ -43,10 +46,10 @@
 }
 
 .property-card {
-    background: #fff;
+    background: var(--surface);
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    box-shadow: var(--shadow-sm);
     position: relative;
     transition: transform 0.2s, box-shadow 0.2s;
     width: 100%;
@@ -60,7 +63,7 @@
 
 .property-card:hover {
     transform: translateY(-8px) scale(1.03);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.16);
+    box-shadow: var(--shadow-md);
 }
 
 .property-image-wrapper {
@@ -134,7 +137,7 @@
     position: absolute;
     top: 14px;
     right: 14px;
-    background: #eab308;
+    background: var(--primary);
     color: #222;
     font-weight: bold;
     font-size: 0.95em;
@@ -278,9 +281,10 @@
 }
 
 .search-filter-section {
-    background: #fff;
+    background: var(--surface);
     border-radius: 14px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
     padding: 32px 28px 18px 28px;
     margin-bottom: 36px;
     max-width: 1100px;
@@ -303,7 +307,7 @@
 
 .search-group input.property-search {
     padding: 10px 16px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border);
     border-radius: 8px;
     font-size: 1em;
     min-width: 180px;
@@ -311,7 +315,7 @@
 
 .filter-group select {
     padding: 10px 16px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border);
     border-radius: 8px;
     font-size: 1em;
     min-width: 140px;
@@ -319,7 +323,7 @@
 }
 
 .btn.btn-primary {
-    background: #eab308;
+    background: var(--primary);
     color: #222;
     border: none;
     border-radius: 8px;
@@ -330,7 +334,7 @@
 }
 
 .btn.btn-primary:hover {
-    background: #c59d07;
+    background: var(--primary-hover);
 }
 
 .filter-actions {
@@ -341,9 +345,9 @@
 }
 
 .btn.btn-outline {
-    background: #fff;
+    background: var(--surface);
     color: #222;
-    border: 1px solid #eab308;
+    border: 1px solid var(--primary);
     border-radius: 8px;
     padding: 8px 18px;
     font-size: 0.98em;
@@ -352,8 +356,8 @@
 }
 
 .btn.btn-outline:hover {
-    background: #eab308;
-    color: #fff;
+    background: var(--surface-soft);
+    color: #1f2937;
 }
 
 @media (max-width: 900px) {
@@ -382,7 +386,7 @@
 
 .sort-properties {
     padding: 8px 18px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border);
     border-radius: 8px;
     font-size: 1em;
     background: #fafafa;
@@ -390,8 +394,8 @@
 }
 
 .sort-properties:focus, .sort-properties:hover {
-    border: 1.5px solid #eab308;
-    box-shadow: 0 0 0 2px #f8e9a1;
+    border: 1.5px solid var(--primary);
+    box-shadow: 0 0 0 2px rgba(234, 179, 8, 0.18);
     outline: none;
 }
 

@@ -24,7 +24,7 @@
                                 <li><strong>Bathrooms:</strong> {{ $property->bathrooms ?? '' }}</li>
                                 <li><strong>Size:</strong> {{ $property->square_feet ?? '' }} sq ft</li>
                             </ul>
-                            <a href="{{ route('payment-history') }}" class="btn btn-modern" style="margin-top:1.2rem;display:inline-block;">View History</a>
+                            <a href="{{ route('payment-history') }}" class="btn btn-modern btn-view-history">View History</a>
                         </div>
                     </div>
                     <div class="overview-image-block">
@@ -33,8 +33,8 @@
                         @else
                             <img src="{{ asset('image/BIG villa.png') }}" alt="Default Property" class="overview-main-image">
                         @endif
-                        <div class="overview-map-block" style="margin-top:1.5rem;">
-                            <img src="{{ asset('image/mappa.jpg') }}" alt="Phnom Penh Map" style="max-width:100%; border-radius:12px;">
+                        <div class="overview-map-block">
+                            <img src="{{ asset('image/mappa.jpg') }}" alt="Phnom Penh Map" class="overview-map-image">
                         </div>
                     </div>
                 </div>

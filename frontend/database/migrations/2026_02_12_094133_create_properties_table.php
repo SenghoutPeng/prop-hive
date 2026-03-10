@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('features')->nullable();
             $table->string('images')->nullable();
             $table->bigInteger('owner_id')->nullable();
-            $table->foreignId('agent_id')->nullable()->constrained('user','user_id')->onDelete('set null');
+            $table->foreignId('agent_id')->nullable()->foreign('user_id')->on('user')->onDelete('set null');
             $table->boolean('is_featured')->default(false);
             $table->boolean('is_active')->default(true);
             $table->timestamps();

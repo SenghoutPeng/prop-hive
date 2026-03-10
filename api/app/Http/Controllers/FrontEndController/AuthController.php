@@ -13,22 +13,18 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         try {
-            Log::info('Login method called', ['request' => $request->all()]);
             $credentials = $request->validate([
                 'user_email' => 'required|email',
                 'password' => 'required',
             ]);
 
-            Log::info('Login attempt', $credentials);
             $user = User::where('user_email', $credentials['user_email'])->first();
-            Log::info('User found', ['user' => $user]);
 
-            if ($user) {
-                Log::info('Password check', [
-                    'input' => $credentials['password'],
-                    'db' => $user->user_password,
-                    'match' => Hash::check($credentials['password'], $user->user_password)
-                ]);
+            if (!$user || !Hash::check($credentials['password'], $user->user_password)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'The provided credentials do not match our records.'
+                ], 401);
             }
 
             if (Hash::check($credentials['password'], $user->user_password)) {
@@ -52,10 +48,11 @@ class AuthController extends Controller
                 ]);
             }
 
+            Log::warning('Unexpected auth flow reached', ['user_email' => $credentials['user_email']]);
             return response()->json([
                 'success' => false,
-                'message' => 'The provided credentials do not match our records.'
-            ], 401);
+                'message' => 'Login failed'
+            ], 500);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,

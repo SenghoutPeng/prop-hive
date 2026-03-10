@@ -76,6 +76,6 @@ class User extends Authenticatable
 
     public function getAuthIdentifierName()
     {
-        return 'user_email';
+        return 'user_id';
     }
 }

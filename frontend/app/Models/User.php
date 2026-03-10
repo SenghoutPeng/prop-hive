@@ -132,13 +132,13 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the email address for the user.
+     * Get the unique identifier column name for auth/session persistence.
      *
      * @return string
      */
     public function getAuthIdentifierName()
     {
-        return 'user_email';
+        return 'user_id';
     }
 
     public function username()

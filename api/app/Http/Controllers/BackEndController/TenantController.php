@@ -124,17 +124,14 @@ class TenantController extends Controller
     {
         try {
             $user = User::find($id);
+            $assignedProperties = Property::where('tenant_id', $id)->get();
 
-            if (!$user) {
+            if (!$user || $assignedProperties->isEmpty()) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Tenant not found'
                 ], 404);
             }
-
-            $properties = Property::where(function($q) use ($user) {
-                $q->whereNull('tenant_id')->orWhere('tenant_id', $user->user_id);
-            })->get();
 
             return response()->json([
                 'success' => true,
@@ -146,6 +143,7 @@ class TenantController extends Controller
                         'phone' => $user->user_phone,
                         'created_at' => $user->created_at
                     ],
+                    'property_ids' => $assignedProperties->pluck('id')->values(),
                 ]
             ]);
         } catch (\Exception $e) {

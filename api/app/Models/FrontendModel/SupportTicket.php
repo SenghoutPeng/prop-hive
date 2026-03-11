@@ -17,11 +17,10 @@ class SupportTicket extends Model
         'support_ticket_message',
         'support_ticket_status',
         'support_ticket_created_at',
-        'support_ticket_responded_at',
     ];
 
     protected $casts = [
         'support_ticket_created_at' => 'datetime',
         'support_ticket_responded_at' => 'datetime',
     ];
-} 
+}

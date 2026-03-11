@@ -12,6 +12,8 @@ class SupportTicket extends Model
 
     protected $fillable = [
         'user_id',
+        'user_email',
+        'name',
         'support_ticket_subject',
         'support_ticket_message',
         'support_ticket_status',
@@ -28,4 +30,4 @@ class SupportTicket extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
-} 
+}

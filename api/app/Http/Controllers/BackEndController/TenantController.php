@@ -18,20 +18,29 @@ class TenantController extends Controller
     public function index()
     {
         try {
-            // List all properties with tenants (join with user table)
-            $properties = Property::with('tenant')->get();
-            
+            $assignedProperties = Property::whereNotNull('tenant_id')->get();
+
+            $tenantIds = $assignedProperties
+                ->pluck('tenant_id')
+                ->unique()
+                ->values();
+
+            $tenants = User::whereIn('user_id', $tenantIds)->get()->keyBy('user_id');
+
+            $propertiesByTenant = $assignedProperties->groupBy('tenant_id');
+
             return response()->json([
                 'success' => true,
-                'data' => $properties->map(function ($property) {
+                'data' => $tenantIds->map(function ($tenantId) use ($tenants, $propertiesByTenant) {
+                    $tenant = $tenants->get($tenantId);
+                    $tenantProperties = $propertiesByTenant->get($tenantId, collect());
+
                     return [
-                        'id' => $property->id,
-                        'tenant' => $property->tenant ? [
-                            'id' => $property->tenant->user_id,
-                            'name' => $property->tenant->user_name,
-                            'email' => $property->tenant->user_email,
-                            'phone' => $property->tenant->user_phone
-                        ] : null
+                        'id' => $tenant?->user_id,
+                        'name' => $tenant?->user_name,
+                        'email' => $tenant?->user_email,
+                        'phone' => $tenant?->user_phone,
+                        'property_ids' => $tenantProperties->pluck('id')->values(),
                     ];
                 })
             ]);
@@ -115,14 +124,14 @@ class TenantController extends Controller
     {
         try {
             $user = User::find($id);
-            
+
             if (!$user) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Tenant not found'
                 ], 404);
             }
-            
+
             $properties = Property::where(function($q) use ($user) {
                 $q->whereNull('tenant_id')->orWhere('tenant_id', $user->user_id);
             })->get();
@@ -137,11 +146,6 @@ class TenantController extends Controller
                         'phone' => $user->user_phone,
                         'created_at' => $user->created_at
                     ],
-                    'available_properties' => $properties->map(function ($property) {
-                        return [
-                            'id' => $property->id
-                        ];
-                    })
                 ]
             ]);
         } catch (\Exception $e) {
@@ -157,14 +161,14 @@ class TenantController extends Controller
     {
         try {
             $user = User::find($id);
-            
+
             if (!$user) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Tenant not found'
                 ], 404);
             }
-            
+
             $validatedData = $request->validate([
                 'user_name' => 'required|string|max:255',
                 'user_email' => 'required|email|unique:user,user_email,' . $user->user_id . ',user_id',
@@ -223,17 +227,17 @@ class TenantController extends Controller
     {
         try {
             $user = User::find($id);
-            
+
             if (!$user) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Tenant not found'
                 ], 404);
             }
-            
+
             // Remove tenant assignment from properties
             Property::where('tenant_id', $user->user_id)->update(['tenant_id' => null]);
-            
+
             // Delete the user
             $user->delete();
 

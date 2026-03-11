@@ -5,6 +5,7 @@ namespace App\Http\Controllers\FrontEndController;
 use Illuminate\Http\Request;
 use App\Models\FrontendModel\SupportTicket;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 
 class SupportTicketController extends Controller
 {
@@ -54,38 +55,47 @@ class SupportTicketController extends Controller
     {
         try {
             $rules = [
+                'subject' => 'required|string|max:255',
                 'message' => 'required|string|max:1000',
             ];
+
             if (!Auth::check()) {
                 $rules['name'] = 'required|string|max:255';
                 $rules['user_email'] = 'required|email|max:255';
             }
-            $request->validate($rules);
+
+            $validated = $request->validate($rules);
+            $authUser = Auth::user();
 
             $ticketData = [
-                'user_id' => Auth::check() ? Auth::user()->user_id : null,
-                'support_ticket_subject' => $request->subject ?? 'Support Request',
-                'support_ticket_message' => $request->message,
+                // Important: custom user PK is user_id, not id.
+                'user_id' => $authUser ? $authUser->user_id : null,
+                'name' => $validated['name'] ?? ($authUser->user_name ?? null),
+                'user_email' => $validated['user_email'] ?? ($authUser->user_email ?? null),
+                // support_ticket table has no dedicated subject column in current schema.
+                'support_ticket_message' => '[Subject] ' . $validated['subject'] . "\n\n" . $validated['message'],
                 'support_ticket_status' => 'pending',
                 'support_ticket_created_at' => now(),
             ];
 
-            \Log::info('Support ticket data', $ticketData);
             $ticket = SupportTicket::create($ticketData);
 
             return response()->json([
                 'success' => true,
-                'message' => 'Support ticket submitted successfully!',
+                'message' => 'Support ticket created successfully',
                 'data' => [
                     'id' => $ticket->support_ticket_id,
+                    'user_id' => $ticket->user_id,
+                    'name' => $ticket->name,
+                    'user_email' => $ticket->user_email,
                     'status' => $ticket->support_ticket_status,
-                    'created_at' => $ticket->support_ticket_created_at
+                    'created_at' => $ticket->support_ticket_created_at,
                 ]
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to submit support ticket',
+                'message' => 'Failed to create support ticket',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -95,7 +105,7 @@ class SupportTicketController extends Controller
     {
         try {
             $ticket = SupportTicket::where('support_ticket_id', $id)
-                ->where('user_id', Auth::id())
+                ->where('user_id', Auth::check() ? Auth::user()->user_id : null)
                 ->firstOrFail();
 
             return response()->json([

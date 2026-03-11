@@ -55,6 +55,11 @@ use Illuminate\Support\Facades\Log;
 
 // Admin authentication and login redirect routes (remain outside frontend group)
 Route::post('/admin/login', [BackEndAuthController::class, 'login']);
+
+// Public tenant read API (JSON)
+Route::get('/tenants', [TenantController::class, 'index']);
+Route::get('/tenants/{id}', [TenantController::class, 'show']);
+
 Route::get('/login', function () {
     return response()->json([
         'message' => 'Please login to access this resource',
@@ -72,7 +77,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index']);
 
-  
+
     Route::get('/utilities', [UtilityController::class, 'index']);
     Route::post('/utilities', [UtilityController::class, 'store']);
     Route::get('/utilities/{id}', [UtilityController::class, 'show']);
@@ -87,9 +92,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/payments/{payment}', [PaymentController::class, 'destroy']);
 
     // Tenant Management API
-    Route::get('/tenants', [TenantController::class, 'index']);
     Route::post('/tenants', [TenantController::class, 'store']);
-    Route::get('/tenants/{user}', [TenantController::class, 'show']);
     Route::put('/tenants/{user}', [TenantController::class, 'update']);
     Route::delete('/tenants/{user}', [TenantController::class, 'destroy']);
 

@@ -74,25 +74,30 @@ class PageController extends \App\Http\Controllers\Controller
         ]);
     }
 
-    public function listing()
+     public function listing()
     {
         try {
-            $properties = Property::active()->get();
+            $properties = Property::orderBy('id', 'desc')->get();
 
             return response()->json([
                 'success' => true,
                 'data' => $properties->map(function ($property) {
                     return [
                         'id' => $property->id,
-                        'title' => $property->property_title,
-                        'price' => $property->property_price,
-                        'type' => $property->property_type,
-                        'status' => $property->property_status,
-                        'bedrooms' => $property->property_bedrooms,
-                        'bathrooms' => $property->property_bathrooms,
-                        'address' => $property->property_address,
-                        'description' => $property->property_description,
-                        'images' => $property->property_images
+                        'title' => $property->title,
+                        'price' => $property->price,
+                        'type' => $property->type,
+                        'status' => $property->status,
+                        'bedrooms' => $property->bedrooms,
+                        'bathrooms' => $property->bathrooms,
+                        'square_feet' => $property->square_feet,
+                        'address' => $property->address,
+                        'features' => $property->features,
+                        'description' => $property->description,
+                        'images' => $property->images,
+                        'image_url' => $property->image_url,
+                        'created_at' => $property->created_at,
+                        'updated_at' => $property->updated_at
                     ];
                 })
             ]);

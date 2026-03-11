@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class UtilityRequest extends Model
 {
+    public $timestamps = false;
     protected $table = 'utility_request';
     protected $primaryKey = 'utility_request_id';
 
     protected $fillable = [
         'user_id',
-        'id',
+        'property_id',
         'utility_request_description',
         'utility_request_status',
         'utility_request_created_at',
@@ -29,6 +30,6 @@ class UtilityRequest extends Model
 
     public function property()
     {
-        return $this->belongsTo(Property::class, 'id', 'id');
+        return $this->belongsTo(Property::class, 'property_id', 'id');
     }
-} 
+}

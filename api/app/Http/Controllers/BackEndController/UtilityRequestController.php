@@ -4,8 +4,6 @@ namespace App\Http\Controllers\BackEndController;
 
 use Illuminate\Http\Request;
 use App\Models\BackendModel\UtilityRequest;
-use App\Models\BackendModel\User;
-use App\Models\BackendModel\Property;
 use App\Http\Controllers\Controller;
 
 class UtilityRequestController extends Controller
@@ -14,7 +12,7 @@ class UtilityRequestController extends Controller
     {
         try {
             $utilityRequests = UtilityRequest::with(['user', 'property'])->orderByDesc('utility_request_created_at')->get();
-            
+
             return response()->json([
                 'success' => true,
                 'data' => $utilityRequests->map(function ($utilityRequest) {
@@ -45,11 +43,12 @@ class UtilityRequestController extends Controller
         }
     }
 
-    public function show(UtilityRequest $utilityRequest)
+    public function show(int $id)
     {
         try {
-            $utilityRequest->load(['user', 'property']);
-            
+            $utilityRequest = UtilityRequest::with(['user', 'property'])
+                ->findOrFail($id);
+
             return response()->json([
                 'success' => true,
                 'data' => [
@@ -83,10 +82,22 @@ class UtilityRequestController extends Controller
         try {
             $validated = $request->validate([
                 'user_id' => 'required|exists:user,user_id',
-                'id' => 'required|exists:properties,id',
+                'property_id' => 'nullable|exists:properties,id',
+                'id' => 'nullable|exists:properties,id',
                 'utility_request_description' => 'required|string',
                 'utility_request_status' => 'required|in:pending,in_progress,completed,cancelled'
             ]);
+
+            $validated['property_id'] = $validated['property_id'] ?? $validated['id'] ?? null;
+            unset($validated['id']);
+
+            if (empty($validated['property_id'])) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to create utility request',
+                    'error' => 'The property_id field is required.'
+                ], 422);
+            }
 
             $utilityRequest = UtilityRequest::create($validated);
 
@@ -104,18 +115,32 @@ class UtilityRequestController extends Controller
         }
     }
 
-    public function update(Request $request, UtilityRequest $utilityRequest)
+    public function update(Request $request, int $id)
     {
         try {
+            $utilityRequest = UtilityRequest::findOrFail($id);
+
             $validated = $request->validate([
                 'user_id' => 'required|exists:user,user_id',
-                'id' => 'required|exists:properties,id',
+                'property_id' => 'nullable|exists:properties,id',
+                'id' => 'nullable|exists:properties,id',
                 'utility_request_description' => 'required|string',
                 'utility_request_status' => 'required|string',
             ]);
-            
+
+            $validated['property_id'] = $validated['property_id'] ?? $validated['id'] ?? null;
+            unset($validated['id']);
+
+            if (empty($validated['property_id'])) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to update utility request',
+                    'error' => 'The property_id field is required.'
+                ], 422);
+            }
+
             $utilityRequest->update($validated);
-            
+
             return response()->json([
                 'success' => true,
                 'message' => 'Utility request updated successfully',
@@ -130,11 +155,13 @@ class UtilityRequestController extends Controller
         }
     }
 
-    public function destroy(UtilityRequest $utilityRequest)
+    public function destroy(int $id)
     {
         try {
+            $utilityRequest = UtilityRequest::findOrFail($id);
+
             $utilityRequest->delete();
-            
+
             return response()->json([
                 'success' => true,
                 'message' => 'Utility request deleted successfully'
@@ -147,4 +174,4 @@ class UtilityRequestController extends Controller
             ], 500);
         }
     }
-} 
+}

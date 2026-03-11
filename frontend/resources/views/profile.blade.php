@@ -57,7 +57,7 @@
                 </div>
 
                 <!-- Account Statistics -->
-                {{-- <div class="profile-section animate-on-scroll">
+                <div class="profile-section animate-on-scroll">
                     <h2>Account Statistics</h2>
                     <div class="stats-grid">
                         <div class="stat-card">
@@ -118,7 +118,7 @@
                         </button>
                     </form>
                     </div>
-                </div> --}}
+                </div>
 
                 <!-- Preferences -->
                 <div class="profile-section animate-on-scroll">

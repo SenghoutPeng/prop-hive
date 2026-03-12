@@ -55,26 +55,18 @@ class AuthController extends Controller
     }
 
     // Handle logout
-    public function logout(Request $request)
+   public function logout(Request $request)
 {
     try {
-
-        if (!$request->user()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Unauthenticated'
-            ], 401);
-        }
-
-        $request->user()->currentAccessToken()->delete();
+        auth()->logout(); // logs out the current user
+        $request->session()->invalidate(); // invalidate session
+        $request->session()->regenerateToken(); // regenerate CSRF token
 
         return response()->json([
             'success' => true,
             'message' => 'Logged out successfully'
         ]);
-
     } catch (\Exception $e) {
-
         return response()->json([
             'success' => false,
             'message' => 'Logout failed',

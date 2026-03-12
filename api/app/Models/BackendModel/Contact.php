@@ -26,4 +26,4 @@ class Contact extends Model
     {
         return $this->belongsTo(User::class, 'assigned_to', 'id');
     }
-} 
+} Utility

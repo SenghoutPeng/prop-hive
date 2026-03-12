@@ -25,7 +25,6 @@ Route::get('/profile', [PageController::class, 'profile'])->name('profile');
 
 // Property management pages
 Route::get('/payment-history', [PageController::class, 'paymentHistory'])->name('payment-history');
-Route::get('/edit-tenant', [PageController::class, 'editTenant'])->name('edit-tenant');
 
 // Contact form
 Route::post('/contact-us', [ContactController::class, 'submit'])->name('contact.submit');

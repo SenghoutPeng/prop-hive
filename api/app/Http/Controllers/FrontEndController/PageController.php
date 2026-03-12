@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\FrontEndController;
 
 use Illuminate\Http\Request;
+use App\Models\FrontendModel\Contact;
 use App\Models\FrontendModel\Property;
 use App\Models\FrontendModel\UtilityRequest;
 use App\Models\FrontendModel\Payment;
@@ -227,6 +228,59 @@ class PageController extends \App\Http\Controllers\Controller
                 'success' => false,
                 'message' => 'Failed to fetch payment history',
                 'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function myPropertyRequests()
+    {
+        try {
+            $user = auth()->user();
+            if (!$user) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Please log in to view your property requests'
+                ], 401);
+            }
+
+            $requests = Contact::where('email', $user->user_email)
+                ->orderByDesc('created_at')
+                ->get();
+
+            return response()->json([
+                'success' => true,
+                'data' => $requests->map(function ($request) {
+                    $fullMessage = (string) $request->message;
+                    $userMessage = $fullMessage;
+                    $adminResponse = null;
+
+                    if (str_contains($fullMessage, '--- Admin Response ---')) {
+                        $parts = explode('--- Admin Response ---', $fullMessage, 2);
+                        $userMessage = trim($parts[0] ?? '');
+                        $adminResponse = trim($parts[1] ?? '');
+                    }
+
+                    return [
+                        'id' => $request->id,
+                        'name' => $request->name,
+                        'email' => $request->email,
+                        'subject' => $request->subject,
+                        'message' => $fullMessage,
+                        'user_message' => $userMessage,
+                        'admin_response' => $adminResponse,
+                        'status' => $request->status,
+                        'read_at' => $request->read_at,
+                        'replied_at' => $request->replied_at,
+                        'created_at' => $request->created_at,
+                        'updated_at' => $request->updated_at,
+                    ];
+                })
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch property request replies',
+                'error' => $e->getMessage(),
             ], 500);
         }
     }

@@ -72,4 +72,4 @@ function closeDetails() {
 }
 </script>
 @endpush
-@endsection 
+@endsection

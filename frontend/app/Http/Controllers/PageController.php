@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Property;
 use App\Models\UtilityRequest;
 use App\Models\Payment;
+use App\Models\Contact;
+use App\Models\SupportTicket;
 use Illuminate\Support\Facades\Storage;
 
 class PageController extends Controller
@@ -72,7 +74,23 @@ class PageController extends Controller
     public function profile()
     {
         $user = auth()->user();
-        return view('profile', compact('user'));
+
+        $propertyRequestReplies = collect();
+        $supportTicketReplies = collect();
+        if ($user) {
+            $propertyRequestReplies = Contact::where('email', $user->user_email)
+                ->orderByDesc('created_at')
+                ->get();
+
+            $supportTicketReplies = SupportTicket::where(function ($query) use ($user) {
+                    $query->where('user_id', $user->user_id)
+                          ->orWhere('user_email', $user->user_email);
+                })
+                ->orderByDesc('support_ticket_created_at')
+                ->get();
+        }
+
+        return view('profile', compact('user', 'propertyRequestReplies', 'supportTicketReplies'));
     }
 
     public function meetOurTeam()

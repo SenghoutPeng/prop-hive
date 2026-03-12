@@ -12,11 +12,6 @@
             <h2>{{ $contact->name }}</h2>
             <p>Subject: {{ $contact->subject }}</p>
             <p>Email: {{ $contact->email }}</p>
-            @if($contact->assignedUser)
-                <p>Assigned To: {{ $contact->assignedUser->user_name }}</p>
-            @else
-                <p>Assigned To: Unassigned</p>
-            @endif
         </div>
         <div class="edit-form-panel">
             @if ($errors->any())
@@ -27,25 +22,17 @@
                 @method('PUT')
                 <div class="form-group"><label>Status</label>
                     <select name="status" class="form-control">
-                        <option value="Open" @if($contact->status == 'Open') selected @endif>Open</option>
-                        <option value="In Progress" @if($contact->status == 'In Progress') selected @endif>In Progress</option>
-                        <option value="Closed" @if($contact->status == 'Closed') selected @endif>Closed</option>
+                        <option value="pending" @if(strtolower($contact->status) == 'pending') selected @endif>Pending</option>
+                        <option value="in_progress" @if(strtolower($contact->status) == 'in_progress') selected @endif>In Progress</option>
+                        <option value="resolved" @if(strtolower($contact->status) == 'resolved') selected @endif>Resolved</option>
+                        <option value="closed" @if(strtolower($contact->status) == 'closed') selected @endif>Closed</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>Assign To</label>
-                    <select name="assigned_to" class="form-control">
-                        <option value="">Unassigned</option>
-                        @foreach($users as $user)
-                            <option value="{{ $user->id }}" {{ $contact->assigned_to == $user->id ? 'selected' : '' }}>{{ $user->user_name }}</option>
-                        @endforeach
-                    </select>
+                <div class="form-group"><label>User Message</label>
+                    <textarea rows="4" class="form-control" readonly>{{ str_contains($contact->message, '--- Admin Response ---') ? trim(explode('--- Admin Response ---', $contact->message, 2)[0]) : $contact->message }}</textarea>
                 </div>
-                <div class="form-group"><label>Read At</label>
-                    <input type="datetime-local" name="read_at" value="{{ old('read_at', $contact->read_at) }}">
-                </div>
-                <div class="form-group"><label>Replied At</label>
-                    <input type="datetime-local" name="replied_at" value="{{ old('replied_at', $contact->replied_at) }}">
+                <div class="form-group"><label>Response Message (Optional)</label>
+                    <textarea name="response" rows="5" class="form-control" placeholder="Add your response to the user...">{{ old('response', str_contains($contact->message, '--- Admin Response ---') ? trim(explode('--- Admin Response ---', $contact->message, 2)[1]) : '') }}</textarea>
                 </div>
                 <div class="form-actions">
                     <button type="button" class="btn btn-cancel" onclick="window.location='{{ route('contact.index') }}'">Cancel</button>
@@ -55,4 +42,4 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection

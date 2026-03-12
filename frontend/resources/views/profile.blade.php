@@ -158,12 +158,82 @@
                     </div>
                 </div>
 
-                <!-- Notification Settings -->
                 <div class="profile-section animate-on-scroll">
+                    <h2>Property Request Replies</h2>
+                    @if(!$user)
+                        <p>Please log in to view your request replies.</p>
+                    @elseif($propertyRequestReplies->isEmpty())
+                        <p>No property requests found yet.</p>
+                    @else
+                        <div class="notification-settings" style="background-color: white; border: none;">
+                            @foreach($propertyRequestReplies as $requestReply)
+                                @php
+                                    $fullMessage = (string) $requestReply->message;
+                                    $userMessage = $fullMessage;
+                                    $adminResponse = null;
+
+                                    if (str_contains($fullMessage, '--- Admin Response ---')) {
+                                        $parts = explode('--- Admin Response ---', $fullMessage, 2);
+                                        $userMessage = trim($parts[0] ?? '');
+                                        $adminResponse = trim($parts[1] ?? '');
+                                    }
+                                @endphp
+                                <div class="notification-item">
+                                    <div class="notification-info"  style="background-color: white; border: none;">
+                                        <h4>{{ $requestReply->subject ?? 'Property Inquiry' }}</h4>
+                                        <p><strong>Your Message:</strong> {{ $userMessage }}</p>
+                                        <p><strong>Admin Response:</strong> {{ $adminResponse ?: 'No response yet' }}</p>
+                                        <p><strong>Status:</strong> {{ $requestReply->status ?? 'pending' }}</p>
+                                        <p><strong>Submitted:</strong> {{ $requestReply->created_at }}</p>
+                                        <p><strong>Replied:</strong> {{ $requestReply->replied_at ?? 'Not yet replied' }}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+
+                <div class="profile-section animate-on-scroll">
+                    <h2>Support Ticket Replies</h2>
+                    @if(!$user)
+                        <p>Please log in to view your support ticket replies.</p>
+                    @elseif($supportTicketReplies->isEmpty())
+                        <p>No support tickets found yet.</p>
+                    @else
+                        <div class="notification-settings" style="background-color: white; border: none;">
+                            @foreach($supportTicketReplies as $ticketReply)
+                                @php
+                                    $fullMessage = (string) $ticketReply->support_ticket_message;
+                                    $userMessage = $fullMessage;
+                                    $adminResponse = null;
+
+                                    if (str_contains($fullMessage, '--- Admin Response ---')) {
+                                        $parts = explode('--- Admin Response ---', $fullMessage, 2);
+                                        $userMessage = trim($parts[0] ?? '');
+                                        $adminResponse = trim($parts[1] ?? '');
+                                    }
+                                @endphp
+                                <div class="notification-item">
+                                    <div class="notification-info" style="background-color: white; border: none;">
+                                        <h4>Ticket #{{ $ticketReply->support_ticket_id }}</h4>
+                                        <p><strong>Your Message:</strong> {{ $userMessage }}</p>
+                                        <p><strong>Admin Response:</strong> {{ $adminResponse ?: 'No response yet' }}</p>
+                                        <p><strong>Status:</strong> {{ $ticketReply->support_ticket_status ?? 'pending' }}</p>
+                                        <p><strong>Submitted:</strong> {{ $ticketReply->support_ticket_created_at ?? 'N/A' }}</p>
+                                        <p><strong>Replied:</strong> {{ $ticketReply->support_ticket_responded_at ?? 'Not yet replied' }}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+
+                <!-- Notification Settings -->
+                <div class="profile-section animate-on-scroll"  style="background-color: white; border: none;">
                     <h2>Notification Settings</h2>
-                    <div class="notification-settings">
-                        <div class="notification-item">
-                            <div class="notification-info">
+                    <div class="notification-settings"  style="background-color: white; border: none;">
+                        <div class="notification-item"  style="background-color: white; border: none;">
+                            <div class="notification-info"  style="background-color: white; border: none;">
                                 <h4>Property Viewings</h4>
                                 <p>Get notified about upcoming property viewings</p>
                             </div>
@@ -173,8 +243,8 @@
                             </label>
                         </div>
 
-                        <div class="notification-item">
-                            <div class="notification-info">
+                        <div class="notification-item"  style="background-color: white; border: none;">
+                            <div class="notification-info"  style="background-color: white; border: none;">
                                 <h4>Price Changes</h4>
                                 <p>Receive alerts when property prices change</p>
                             </div>
@@ -185,7 +255,7 @@
                         </div>
 
                         <div class="notification-item">
-                            <div class="notification-info">
+                            <div class="notification-info" style="background-color: white; border: none;">
                                 <h4>New Listings</h4>
                                 <p>Get notified about new properties matching your criteria</p>
                             </div>
@@ -196,7 +266,7 @@
                         </div>
 
                         <div class="notification-item">
-                            <div class="notification-info">
+                            <div class="notification-info" style="background-color: white; border: none;">
                                 <h4>Agent Messages</h4>
                                 <p>Receive notifications when agents send you messages</p>
                             </div>

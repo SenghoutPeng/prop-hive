@@ -49,8 +49,8 @@
                         <li><a href="{{ route('utility.index') }}" class="{{ request()->routeIs('utility.*') ? 'active' : '' }}">Utility Management</a></li>
                         <li><a href="{{ route('tenant.index') }}" class="{{ request()->routeIs('tenant.*') ? 'active' : '' }}">Tenant Management</a></li>
                         <li><a href="{{ route('property.index') }}" class="{{ request()->routeIs('property.*') ? 'active' : '' }}">Property Management</a></li>
+                        <li><a href="{{ route('contact.index') }}" class="{{ request()->routeIs('contact.*') ? 'active' : '' }}">Property Request Management</a></li>
                         <li><a href="{{ route('ticket.index') }}" class="{{ request()->routeIs('ticket.*') ? 'active' : '' }}">Ticket Management</a></li>
-                        <li><a href="{{ route('contact.index') }}" class="{{ request()->routeIs('contact.*') ? 'active' : '' }}">Property Requests</a></li>
                         <li><a href="{{ route('utility-request.index') }}" class="{{ request()->routeIs('utility-request.*') ? 'active' : '' }}">Utility Request Management</a></li>
                     </ul>
                 </nav>

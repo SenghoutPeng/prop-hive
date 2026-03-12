@@ -6,7 +6,6 @@ use App\Http\Controllers\BackEndController\PaymentController;
 use App\Http\Controllers\BackEndController\PropertyController;
 use App\Http\Controllers\BackEndController\TenantController;
 use App\Http\Controllers\BackEndController\UtilityController;
-use App\Http\Controllers\BackEndController\TicketController;
 use App\Http\Controllers\BackEndController\ContactController as BackEndContactController;
 use App\Http\Controllers\BackEndController\UtilityRequestController;
 use App\Http\Controllers\BackEndController\AuthController as BackEndAuthController;
@@ -14,7 +13,6 @@ use App\Http\Controllers\FrontEndController\PageController;
 use App\Http\Controllers\FrontEndController\ContactController as FrontEndContactController;
 use App\Http\Controllers\FrontEndController\AuthController as FrontEndAuthController;
 use App\Http\Controllers\FrontEndController\SupportTicketController;
-use Illuminate\Support\Facades\Log;
 
 
     Route::post('/user/login', [FrontEndAuthController::class, 'login']);
@@ -25,7 +23,7 @@ use Illuminate\Support\Facades\Log;
     Route::post('/contact', [FrontEndContactController::class, 'submit']);
     Route::post('/contact-agent', [FrontEndContactController::class, 'contactAgent']);
     Route::post('/utility-request', [UtilityRequestController::class, 'store']);
-    Route::post('/support-ticket', [TicketController::class, 'store']);
+    Route::post('/support-ticket', [SupportTicketController::class, 'store']);
 
     // Public page routes
     Route::get('/home', [PageController::class, 'home']);
@@ -45,6 +43,7 @@ use Illuminate\Support\Facades\Log;
         Route::put('/profile', [PageController::class, 'updateProfile']);
         // User-specific data
         Route::get('/payment-history', [PageController::class, 'paymentHistory']);
+        Route::get('/my-property-requests', [PageController::class, 'myPropertyRequests']);
         Route::get('/my-support-tickets', [SupportTicketController::class, 'index']);
         Route::post('/my-support-tickets', [SupportTicketController::class, 'store']);
         Route::get('/my-support-tickets/{id}', [SupportTicketController::class, 'show']);
@@ -105,10 +104,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/properties/{property}', [PropertyController::class, 'destroy']);
 
     // Ticket Management API
-    Route::get('/tickets', [TicketController::class, 'index']);
-    Route::get('/tickets/{ticket}', [TicketController::class, 'show']);
-    Route::put('/tickets/{ticket}', [TicketController::class, 'update']);
-    Route::delete('/tickets/{ticket}', [TicketController::class, 'destroy']);
+    Route::get('/tickets', [\App\Http\Controllers\BackEndController\TicketController::class, 'index']);
+    Route::post('/tickets', [\App\Http\Controllers\BackEndController\TicketController::class, 'store']);
+    Route::get('/tickets/{ticket}', [\App\Http\Controllers\BackEndController\TicketController::class, 'show']);
+    Route::put('/tickets/{ticket}', [\App\Http\Controllers\BackEndController\TicketController::class, 'update']);
+    Route::delete('/tickets/{ticket}', [\App\Http\Controllers\BackEndController\TicketController::class, 'destroy']);
 
     // Contact/Property Requests API
     Route::get('/contacts', [BackEndContactController::class, 'index']);

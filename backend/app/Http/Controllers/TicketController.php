@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SupportTicket;
-use App\Models\User;
 
 class TicketController extends Controller
 {
@@ -37,4 +36,4 @@ class TicketController extends Controller
         $ticket->delete();
         return redirect()->route('ticket.index')->with('success', 'Ticket deleted successfully!');
     }
-} 
+}

@@ -15,7 +15,7 @@
 }
 
 .profile-section {
-    background: var(--surface);
+
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-sm);
@@ -236,6 +236,17 @@
     margin: 0;
     color: var(--text-muted);
     font-size: 0.92rem;
+}
+
+/* Keep profile text selection neutral to avoid tinted blocks behind text. */
+.profile-content ::selection {
+    background: transparent;
+    color: inherit;
+}
+
+.profile-content ::-moz-selection {
+    background: transparent;
+    color: inherit;
 }
 
 .switch {

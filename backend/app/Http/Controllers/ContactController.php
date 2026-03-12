@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Contact;
-use App\Models\User;
 
 class ContactController extends Controller
 {
@@ -17,8 +16,7 @@ class ContactController extends Controller
     public function edit($id)
     {
         $contact = Contact::findOrFail($id);
-        $users = User::all();
-        return view('contact.edit', compact('contact', 'users'));
+        return view('contact.edit', compact('contact'));
     }
 
     public function update(Request $request, $id)
@@ -26,11 +24,25 @@ class ContactController extends Controller
         $contact = Contact::findOrFail($id);
         $validated = $request->validate([
             'status' => 'required|string',
-            'assigned_to' => 'nullable|integer',
-            'read_at' => 'nullable|date',
-            'replied_at' => 'nullable|date',
+            'response' => 'nullable|string|max:2000',
         ]);
-        $contact->update($validated);
+
+        $baseMessage = (string) $contact->message;
+        if (str_contains($baseMessage, '--- Admin Response ---')) {
+            $parts = explode('--- Admin Response ---', $baseMessage, 2);
+            $baseMessage = trim($parts[0]);
+        }
+
+        if (!empty($validated['response'])) {
+            $contact->message = $baseMessage . "\n\n--- Admin Response ---\n" . trim($validated['response']);
+        }
+
+        $contact->status = $validated['status'];
+        $contact->assigned_to = null;
+        $contact->read_at = now();
+        $contact->replied_at = now();
+        $contact->save();
+
         return redirect()->route('contact.index')->with('success', 'Request updated successfully!');
     }
 
@@ -40,4 +52,4 @@ class ContactController extends Controller
         $contact->delete();
         return redirect()->route('contact.index')->with('success', 'Request deleted successfully!');
     }
-} 
+}

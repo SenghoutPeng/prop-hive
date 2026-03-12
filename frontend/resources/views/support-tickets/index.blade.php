@@ -36,7 +36,19 @@
                                             </span>
                                         </div>
                                         <div style="margin-top:0.5rem;">
-                                            <div style="color:#333;font-size:1.1em;margin-bottom:0.5rem;white-space:pre-line;">{{ $ticket->support_ticket_message }}</div>
+                                            @php
+                                                $fullMessage = (string) $ticket->support_ticket_message;
+                                                $userMessage = $fullMessage;
+                                                $adminResponse = null;
+
+                                                if (str_contains($fullMessage, '--- Admin Response ---')) {
+                                                    $parts = explode('--- Admin Response ---', $fullMessage, 2);
+                                                    $userMessage = trim($parts[0] ?? '');
+                                                    $adminResponse = trim($parts[1] ?? '');
+                                                }
+                                            @endphp
+                                            <div style="color:#333;font-size:1.1em;margin-bottom:0.5rem;white-space:pre-line;"><strong>Your Message:</strong> {{ $userMessage }}</div>
+                                            <div style="color:#1f6fd6;font-size:0.98em;margin-bottom:0.5rem;white-space:pre-line;"><strong>Admin Response:</strong> {{ $adminResponse ?: 'No response yet' }}</div>
                                             <div style="color:#888;font-size:0.95em;">
                                                 <span>Created: {{ $ticket->support_ticket_created_at ? $ticket->support_ticket_created_at->format('M d, Y H:i') : 'N/A' }}</span>
                                                 @if($ticket->support_ticket_responded_at)
@@ -65,4 +77,4 @@
             </div>
         </div>
     </section>
-@endsection 
+@endsection

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\BackEndController;
 use Illuminate\Http\Request;
 use App\Models\BackendModel\Contact;
 use App\Http\Controllers\Controller;
-use App\Models\BackendModel\User;
 
 class ContactController extends Controller
 {
@@ -13,7 +12,7 @@ class ContactController extends Controller
     {
         try {
             $contacts = Contact::orderByDesc('created_at')->get();
-            
+
             return response()->json([
                 'success' => true,
                 'data' => $contacts->map(function ($contact) {
@@ -103,13 +102,25 @@ class ContactController extends Controller
         try {
             $validated = $request->validate([
                 'status' => 'required|string',
-                'assigned_to' => 'nullable|integer',
-                'read_at' => 'nullable|date',
-                'replied_at' => 'nullable|date',
+                'response' => 'nullable|string|max:2000',
             ]);
-            
-            $contact->update($validated);
-            
+
+            $baseMessage = (string) $contact->message;
+            if (str_contains($baseMessage, '--- Admin Response ---')) {
+                $parts = explode('--- Admin Response ---', $baseMessage, 2);
+                $baseMessage = trim($parts[0]);
+            }
+
+            if (!empty($validated['response'])) {
+                $contact->message = $baseMessage . "\n\n--- Admin Response ---\n" . trim($validated['response']);
+            }
+
+            $contact->status = $validated['status'];
+            $contact->assigned_to = null;
+            $contact->read_at = now();
+            $contact->replied_at = now();
+            $contact->save();
+
             return response()->json([
                 'success' => true,
                 'message' => 'Contact request updated successfully',
@@ -128,7 +139,7 @@ class ContactController extends Controller
     {
         try {
             $contact->delete();
-            
+
             return response()->json([
                 'success' => true,
                 'message' => 'Contact request deleted successfully'
@@ -141,4 +152,4 @@ class ContactController extends Controller
             ], 500);
         }
     }
-} 
+}

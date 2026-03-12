@@ -22,7 +22,7 @@ use App\Http\Controllers\FrontEndController\SupportTicketController;
     // Public API routes (no authentication required)
     Route::post('/contact', [FrontEndContactController::class, 'submit']);
     Route::post('/contact-agent', [FrontEndContactController::class, 'contactAgent']);
-    Route::post('/utility-request', [UtilityRequestController::class, 'storeUtilityRequest']);
+    Route::post('/utility-request', [PageController::class, 'storeUtilityRequest']);
     Route::post('/support-ticket', [SupportTicketController::class, 'store']);
 
     // Public page routes

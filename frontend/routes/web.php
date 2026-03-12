@@ -28,6 +28,7 @@ Route::get('/payment-history', [PageController::class, 'paymentHistory'])->name(
 
 // Contact form
 Route::post('/contact-us', [ContactController::class, 'submit'])->name('contact.submit');
+Route::post('/contact-agent', [ContactController::class, 'contactAgent'])->name('contact-agent');
 Route::post('/contact-agent', [ContactController::class, 'contactAgent'])->name('contact-agent.store');
 
 // Support Ticket routes (require authentication for viewing, but not for creating)

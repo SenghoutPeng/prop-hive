@@ -63,23 +63,21 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request)
-    {
-        try {
-            // Revoke the token
-            $request->user()->currentAccessToken()->delete();
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Logged out successfully'
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Logout failed',
-                'error' => $e->getMessage()
-            ], 500);
-        }
+{
+    if (!$request->user()) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Unauthenticated'
+        ], 401);
     }
+
+    $request->user()->tokens()->delete();
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Logged out successfully'
+    ]);
+}
 
     public function showRegistrationForm()
     {

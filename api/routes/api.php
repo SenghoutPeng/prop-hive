@@ -17,8 +17,7 @@ use App\Http\Controllers\FrontEndController\SupportTicketController;
 
     Route::post('/user/login', [FrontEndAuthController::class, 'login']);
     Route::post('/register', [FrontEndAuthController::class, 'register']);
-    Route::post('/user/logout', [FrontEndAuthController::class, 'logout']);
-
+Route::middleware('auth:sanctum')->post('/user/logout', [FrontEndAuthController::class, 'logout']);
     // Public API routes (no authentication required)
     Route::post('/contact', [FrontEndContactController::class, 'submit']);
     Route::post('/contact-agent', [FrontEndContactController::class, 'contactAgent']);

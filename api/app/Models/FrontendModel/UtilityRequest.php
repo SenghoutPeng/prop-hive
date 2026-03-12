@@ -11,7 +11,7 @@ class UtilityRequest extends Model
 
     protected $table = 'utility_request';
     protected $primaryKey = 'utility_request_id';
-
+public $timestamps = false;
    protected $fillable = [
     'utility_request_description',
     'utility_request_status',

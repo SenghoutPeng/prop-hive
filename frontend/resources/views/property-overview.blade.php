@@ -81,7 +81,9 @@
                     @endforelse
                 </div>
             </section>
-
+r="description">Description</label>
+                            <input type="text" id="description" name="description" placeholder="Describe the issue..." required>
+                        </div>
             <section class="submit-request-section modern-card">
                 <div class="request-title-column">
                     <h2 class="section-title">Submit Utility Requests</h2>

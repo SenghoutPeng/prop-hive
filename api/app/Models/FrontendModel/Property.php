@@ -10,7 +10,7 @@ class Property extends Model
     use HasFactory;
 
     protected $table = 'properties';
-    protected $primaryKey = 'property_id';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'title',
@@ -74,4 +74,4 @@ class Property extends Model
     {
         return $this->images ? $this->images[0] : null;
     }
-} 
+}

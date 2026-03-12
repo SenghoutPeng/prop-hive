@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Log;
 
     // Public API routes (no authentication required)
     Route::post('/contact', [FrontEndContactController::class, 'submit']);
+    Route::post('/contact-agent', [FrontEndContactController::class, 'contactAgent']);
     Route::post('/utility-request', [UtilityRequestController::class, 'store']);
     Route::post('/support-ticket', [TicketController::class, 'store']);
 

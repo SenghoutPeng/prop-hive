@@ -28,60 +28,19 @@ class ListingApp {
     }
 
     loadProperties() {
-        // Simulate loading properties from API
-        this.properties = [
-            {
-                id: 1,
-                title: 'Luxury Villa',
-                price: 2500000,
-                type: 'villa',
-                bedrooms: 5,
-                bathrooms: 4,
-                location: 'Phnom Penh',
-                image: 'image/BIG villa.png',
-                featured: true,
-                status: 'available'
-            },
-            {
-                id: 2,
-                title: 'Downtown Apartment',
-                price: 450000,
-                type: 'apartment',
-                bedrooms: 2,
-                bathrooms: 2,
-                location: 'Phnom Penh',
-                image: 'image/downtown apartment.png',
-                featured: false,
-                status: 'available'
-            },
-            {
-                id: 3,
-                title: 'Office Space',
-                price: 1000000,
-                type: 'office',
-                bedrooms: 0,
-                bathrooms: 2,
-                location: 'Phnom Penh',
-                image: 'image/hell.png',
-                featured: false,
-                status: 'available'
-            },
-            {
-                id: 4,
-                title: 'Beach House',
-                price: 3800000,
-                type: 'house',
-                bedrooms: 4,
-                bathrooms: 3,
-                location: 'Sihanoukville',
-                image: 'image/beach-h.png',
-                featured: true,
-                status: 'available'
-            }
-        ];
-        
+        this.properties = Array.isArray(window.listingProperties)
+            ? window.listingProperties.map(property => ({
+                ...property,
+                price: Number(property.price) || 0,
+                bedrooms: Number(property.bedrooms) || 0,
+                bathrooms: Number(property.bathrooms) || 0,
+                featured: Boolean(property.featured),
+            }))
+            : [];
+
         this.filteredProperties = [...this.properties];
         this.renderProperties();
+        this.updateFilterCount();
     }
 
     setupFilters() {
@@ -154,7 +113,10 @@ class ListingApp {
             }
 
             // Location filter
-            if (this.currentFilters.location !== 'all' && property.location !== this.currentFilters.location) {
+            if (
+                this.currentFilters.location !== 'all' &&
+                !String(property.location || '').toLowerCase().includes(this.currentFilters.location.toLowerCase())
+            ) {
                 return false;
             }
 
@@ -257,15 +219,27 @@ class ListingApp {
         this.setupPropertyCards();
     }
 
+    getFallbackImage() {
+        return window.listingFallbackImage || '/image/house.png';
+    }
+
+    resolveImage(image) {
+        const value = String(image || '').trim();
+        return value || this.getFallbackImage();
+    }
+
     createPropertyCard(property) {
+        const imageSrc = this.resolveImage(property.image);
+        const fallbackImage = this.getFallbackImage();
+
         const card = document.createElement('div');
         card.className = 'property-card';
         card.dataset.propertyId = property.id;
         card.dataset.type = property.type;
-        
+
         card.innerHTML = `
             <div class="property-image">
-                <img src="${property.image}" alt="${property.title}">
+                <img src="${imageSrc}" alt="${property.title}" onerror="this.onerror=null;this.src='${fallbackImage}';">
                 ${property.featured ? '<span class="featured-badge">Featured</span>' : ''}
                 <div class="property-overlay">
                     <button class="btn btn-primary quick-view" data-property-id="${property.id}">Quick View</button>
@@ -290,12 +264,15 @@ class ListingApp {
     }
 
     formatPrice(price) {
-        if (price >= 1000000) {
-            return (price / 1000000).toFixed(1) + 'M';
-        } else if (price >= 1000) {
-            return (price / 1000).toFixed(0) + 'K';
+        const numericPrice = Number(price) || 0;
+
+        if (numericPrice >= 1000000) {
+            return (numericPrice / 1000000).toFixed(1) + 'M';
+        } else if (numericPrice >= 1000) {
+            return (numericPrice / 1000).toFixed(0) + 'K';
         }
-        return price.toLocaleString();
+
+        return numericPrice.toLocaleString();
     }
 
     setupPropertyCards() {
@@ -331,7 +308,7 @@ class ListingApp {
             card.addEventListener('mouseenter', () => {
                 card.classList.add('hovered');
             });
-            
+
             card.addEventListener('mouseleave', () => {
                 card.classList.remove('hovered');
             });
@@ -342,6 +319,9 @@ class ListingApp {
         const property = this.properties.find(p => p.id == propertyId);
         if (!property) return;
 
+        const imageSrc = this.resolveImage(property.image);
+        const fallbackImage = this.getFallbackImage();
+
         const modal = document.createElement('div');
         modal.className = 'quick-view-modal';
         modal.innerHTML = `
@@ -349,7 +329,7 @@ class ListingApp {
                 <span class="close">&times;</span>
                 <div class="quick-view-grid">
                     <div class="quick-view-image">
-                        <img src="${property.image}" alt="${property.title}">
+                        <img src="${imageSrc}" alt="${property.title}" onerror="this.onerror=null;this.src='${fallbackImage}';">
                     </div>
                     <div class="quick-view-details">
                         <h2>${property.title}</h2>
@@ -446,30 +426,50 @@ class ListingApp {
 
     handleContactAgentSubmit(modal, property) {
         const form = modal.querySelector('form');
-        const formData = new FormData(form);
-        
+
         // Show loading
         const submitBtn = form.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
         submitBtn.textContent = 'Sending...';
         submitBtn.disabled = true;
 
-        // Simulate API call
-        setTimeout(() => {
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '';
+
+        const payload = {
+            name: form.querySelector('[name="name"]').value,
+            email: form.querySelector('[name="email"]').value,
+            phone: form.querySelector('[name="phone"]').value,
+            message: form.querySelector('[name="message"]').value,
+            subject: 'Property Inquiry: ' + property.title,
+            property_id: property.id,
+        };
+
+        fetch('/contact-agent', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        })
+        .then(response => response.json())
+        .then(data => {
+            modal.remove();
+            this.showNotification(data.message || 'Message sent successfully! An agent will contact you soon.', 'success');
+        })
+        .catch(() => {
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
-            modal.remove();
-            
-            // Show success message
-            this.showNotification('Message sent successfully! An agent will contact you soon.', 'success');
-        }, 2000);
+            this.showNotification('Failed to send message. Please try again.', 'error');
+        });
     }
 
     setupSearch() {
         const searchInput = document.querySelector('.property-search');
         if (searchInput) {
             let searchTimeout;
-            
+
             searchInput.addEventListener('input', (e) => {
                 clearTimeout(searchTimeout);
                 searchTimeout = setTimeout(() => {
@@ -509,7 +509,7 @@ class ListingApp {
     toggleMapView() {
         const container = document.querySelector('.property-grid');
         const mapToggle = document.querySelector('.toggle-map-view');
-        
+
         if (container.classList.contains('map-view')) {
             container.classList.remove('map-view');
             mapToggle.textContent = 'Map View';
@@ -523,7 +523,7 @@ class ListingApp {
         // Implement pagination if needed
         const itemsPerPage = 12;
         let currentPage = 1;
-        
+
         this.renderPagination();
     }
 
@@ -555,13 +555,13 @@ class ListingApp {
             <span>${message}</span>
             <button class="notification-close">&times;</button>
         `;
-        
+
         document.body.appendChild(notification);
-        
+
         setTimeout(() => {
             notification.remove();
         }, 5000);
-        
+
         notification.querySelector('.notification-close').addEventListener('click', () => {
             notification.remove();
         });
@@ -572,4 +572,4 @@ class ListingApp {
 let listingApp;
 document.addEventListener('DOMContentLoaded', () => {
     listingApp = new ListingApp();
-}); 
+});

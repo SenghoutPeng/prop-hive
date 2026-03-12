@@ -67,11 +67,29 @@ class Property extends Model
 
     public function getFormattedPriceAttribute()
     {
-        return '$' . number_format($this->price, 2);
+        return '$' . number_format((float) $this->price, 2);
     }
 
     public function getMainImageAttribute()
     {
-        return $this->images ? $this->images[0] : null;
+        $images = $this->getRawOriginal('images');
+
+        if (!$images) {
+            return null;
+        }
+
+        $decoded = json_decode($images, true);
+
+        if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+            return $decoded[0] ?? null;
+        }
+
+        if (str_contains($images, ',')) {
+            $parts = array_values(array_filter(array_map('trim', explode(',', $images))));
+
+            return $parts[0] ?? null;
+        }
+
+        return $images;
     }
-} 
+}

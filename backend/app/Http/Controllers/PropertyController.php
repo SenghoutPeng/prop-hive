@@ -45,7 +45,7 @@ class PropertyController extends Controller
 
     public function index()
     {
-        $properties = Property::orderBy('id', 'desc')->take(4)->get();
+        $properties = Property::orderBy('id', 'desc')->get();
         return view('property.index', compact('properties'));
     }
 

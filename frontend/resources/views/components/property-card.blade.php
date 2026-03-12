@@ -1,6 +1,6 @@
-<div class="property-card property-card-horizontal">
+<div {{ $attributes->merge(['class' => 'property-card property-card-horizontal']) }}>
     <div class="property-image-wrapper">
-        <img src="{{ asset($image) }}" alt="{{ $title }}">
+        <img src="{{ filter_var($image, FILTER_VALIDATE_URL) ? $image : asset($image) }}" alt="{{ $title }}">
         @if(isset($featured) && $featured)
             <span class="property-badge">Featured</span>
         @endif
@@ -23,4 +23,4 @@
             </div>
         @endif
     </div>
-</div> 
+</div>

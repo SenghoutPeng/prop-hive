@@ -7,6 +7,56 @@
 @endpush
 
 @section('content')
+    @php
+        $resolveListingImage = function ($rawImage) {
+            $image = trim((string) ($rawImage ?? ''));
+
+            if ($image === '') {
+                return asset('image/house.png');
+            }
+
+            if (filter_var($image, FILTER_VALIDATE_URL)) {
+                return $image;
+            }
+
+            $image = ltrim($image, '/');
+
+            if (str_starts_with($image, 'storage/')) {
+                return asset($image);
+            }
+
+            // Backend property management stores uploads as properties/<filename>
+            if (str_starts_with($image, 'properties/')) {
+                return asset('storage/' . $image);
+            }
+
+            if (str_starts_with($image, 'image/')) {
+                return asset($image);
+            }
+
+            return asset('image/' . $image);
+        };
+
+        $listingProperties = $properties->map(function ($property) use ($resolveListingImage) {
+            $imageUrl = $resolveListingImage($property->main_image);
+
+            return [
+                'id' => $property->id,
+                'title' => $property->title,
+                'price' => (float) $property->price,
+                'type' => $property->type,
+                'bedrooms' => $property->bedrooms,
+                'bathrooms' => $property->bathrooms,
+                'location' => $property->address,
+                'image' => $imageUrl,
+                'featured' => (bool) $property->is_featured,
+                'status' => $property->status,
+                'description' => Str::limit($property->description, 80),
+                'created_at' => optional($property->created_at)->toIso8601String(),
+            ];
+        });
+    @endphp
+
     <section class="listing-hero">
         <div class="container">
             <h1>Property Listings</h1>
@@ -62,7 +112,7 @@
                         <button type="submit" class="btn btn-primary">Search</button>
                     </div>
                 </form>
-                
+
                 <div class="filter-actions">
                     <button class="clear-filters btn btn-outline">Clear Filters</button>
                     <button class="toggle-map-view btn btn-outline">Map View</button>
@@ -73,7 +123,7 @@
             <div class="results-section">
                 <div class="results-header">
                     <div class="results-info">
-                        <span class="filter-count">4 properties found</span>
+                        <span class="filter-count">{{ $properties->count() }} properties found</span>
                     </div>
                     <div class="sort-section">
                         <label for="sort-properties">Sort by:</label>
@@ -90,15 +140,16 @@
                 <div class="property-grid-wrapper">
                   <div class="property-grid">
                     @foreach($properties as $property)
-                        <x-property-card 
-                            :image="'image/' . ($property->main_image ?? 'house.png')"
+                        <x-property-card
+                            :image="$resolveListingImage($property->main_image)"
                             :title="$property->title"
                             :price="$property->formatted_price"
-                            :location="$property->city"
+                            :location="$property->address"
                             :bedrooms="$property->bedrooms"
                             :bathrooms="$property->bathrooms"
                             :featured="$property->is_featured"
                             :description="Str::limit($property->description, 80)"
+                            :data-price="$property->price"
                             :data-type="$property->type"
                             :data-property-id="$property->id"
                         />
@@ -116,5 +167,9 @@
 @endsection
 
 @push('scripts')
+    <script>
+        window.listingProperties = @json($listingProperties);
+        window.listingFallbackImage = @json(asset('image/house.png'));
+    </script>
     <script src="{{ asset('js/listing.js') }}"></script>
 @endpush

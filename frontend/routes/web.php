@@ -29,6 +29,7 @@ Route::get('/edit-tenant', [PageController::class, 'editTenant'])->name('edit-te
 
 // Contact form
 Route::post('/contact-us', [ContactController::class, 'submit'])->name('contact.submit');
+Route::post('/contact-agent', [ContactController::class, 'contactAgent'])->name('contact-agent.store');
 
 // Support Ticket routes (require authentication for viewing, but not for creating)
 Route::get('/support-tickets/create', [SupportTicketController::class, 'create'])->name('support-tickets.create');

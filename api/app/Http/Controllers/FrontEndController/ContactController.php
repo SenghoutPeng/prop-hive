@@ -9,6 +9,40 @@ use Illuminate\Support\Facades\Log;
 
 class ContactController extends Controller
 {
+    public function contactAgent(Request $request)
+    {
+        try {
+            $validated = $request->validate([
+                'name'        => 'required|string|max:191',
+                'email'       => 'required|email|max:191',
+                'phone'       => 'nullable|string|max:50',
+                'message'     => 'required|string|max:2000',
+                'property_id' => 'nullable|integer',
+                'subject'     => 'nullable|string|max:191',
+            ]);
+
+            $contact = Contact::create([
+                'name'    => $validated['name'],
+                'email'   => $validated['email'],
+                'subject' => $validated['subject'] ?? 'Property Inquiry',
+                'message' => $validated['message'],
+                'status'  => 'pending',
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Message sent successfully! An agent will contact you soon.',
+                'data'    => ['contact_id' => $contact->id, 'status' => 'pending'],
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to send message',
+                'error'   => $e->getMessage(),
+            ], 500);
+        }
+    }
+
     public function submit(Request $request)
     {
         try {

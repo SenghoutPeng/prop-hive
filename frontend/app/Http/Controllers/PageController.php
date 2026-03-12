@@ -55,7 +55,12 @@ class PageController extends Controller
 
     public function listing()
     {
-        $properties = Property::active()->get();
+        $properties = Property::query()
+            ->from('properties')
+            ->where('is_active', true)
+            ->orderByDesc('id')
+            ->get();
+
         return view('listing', compact('properties'));
     }
 

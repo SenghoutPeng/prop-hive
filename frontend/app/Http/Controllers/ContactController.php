@@ -33,4 +33,26 @@ class ContactController extends Controller
 
         return redirect()->back()->with('success', 'Thank you for contacting us! Your support ticket has been submitted. Our team will get back to you soon.');
     }
+
+    public function contactAgent(Request $request)
+    {
+        $validated = $request->validate([
+            'name'        => 'required|string|max:191',
+            'email'       => 'required|email|max:191',
+            'phone'       => 'nullable|string|max:50',
+            'message'     => 'required|string|max:2000',
+            'property_id' => 'nullable|integer',
+            'subject'     => 'nullable|string|max:191',
+        ]);
+
+        Contact::create([
+            'name'    => $validated['name'],
+            'email'   => $validated['email'],
+            'subject' => $validated['subject'] ?? 'Property Inquiry',
+            'message' => $validated['message'],
+            'status'  => 'pending',
+        ]);
+
+        return response()->json(['success' => true, 'message' => 'Message sent successfully! An agent will contact you soon.']);
+    }
 }

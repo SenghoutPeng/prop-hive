@@ -25,7 +25,7 @@ class PaymentController extends Controller
                             'name' => $payment->user->user_name
                         ],
                         'property' => [
-                            'id' => $payment->property->id
+                            'id' => $payment->property_id
                         ],
                         'amount' => $payment->payment_amount,
                         'date' => $payment->payment_date,
@@ -171,7 +171,7 @@ class PaymentController extends Controller
         }
     }
 
-    
+
     public function destroy($id)
     {
         try {
